@@ -1,0 +1,10 @@
+endpoint: http://localhost:4466
+datamodel: datamodel.graphql
+
+#  Pro tip: If you want you want the Prisma database schema to update
+# automatically every time you deploy changes to your Prisma services (e.g. an
+# update to the data model), you can add the following post-deployment hook to
+# your prisma.yml file:
+hooks:
+  post-deploy:
+    - graphql get-schema -p prisma

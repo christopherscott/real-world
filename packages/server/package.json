@@ -5,5 +5,8 @@
   "scripts": {
     "start": "node src/index.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "graphql-yoga": "^1.14.10",
+    "prisma-binding": "^2.1.0"
+  }
 }
