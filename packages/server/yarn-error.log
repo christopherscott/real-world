@@ -1,0 +1,47 @@
+Arguments: 
+  /Users/alex/.nvm/versions/node/v9.7.1/bin/node /usr/local/Cellar/yarn/1.6.0/libexec/bin/yarn.js
+
+PATH: 
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/alex/.nvm/versions/node/v9.7.1/bin:/Users/alex/anaconda3/bin:/Users/alex/anaconda3/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.6.0
+
+Node version: 
+  9.7.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/alex/Projects/real-world/packages/server/package.json: Unexpected string in JSON at position 237
+      at JSON.parse (<anonymous>)
+      at /usr/local/Cellar/yarn/1.6.0/libexec/lib/cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/Cellar/yarn/1.6.0/libexec/lib/cli.js:98:30)
+      at /usr/local/Cellar/yarn/1.6.0/libexec/lib/cli.js:109:13
+      at <anonymous>
+
+npm manifest: 
+  {
+    "name": "@real-world/server",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+      "start": "nodemon -r dotenv/config src/index.js"
+    },
+    "dependencies": {
+      "graphql-yoga": "^1.14.10",
+      "prisma-binding": "^2.1.0"
+    }
+    "devDependencies": {
+      "dotenv": "^6.0.0",
+      "nodemon": "^1.17.5"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

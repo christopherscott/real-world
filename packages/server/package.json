@@ -3,10 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node src/index.js"
+    "start": "NODE_ENV=development nodemon --exec ts-node src/index.ts"
   },
   "dependencies": {
     "graphql-yoga": "^1.14.10",
     "prisma-binding": "^2.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^6.0.0",
+    "nodemon": "^1.17.5",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.2"
   }
 }
