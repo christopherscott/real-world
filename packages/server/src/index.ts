@@ -1,6 +1,6 @@
-import { GraphQLServer } from 'graphql-yoga'
-import { Prisma } from './generated/prisma'
-import resolvers from './resolvers'
+import { GraphQLServer } from 'graphql-yoga';
+import { Prisma } from './generated/prisma';
+import resolvers from './resolvers';
 
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
@@ -13,5 +13,5 @@ const server = new GraphQLServer({
       // secret: process.env.PRISMA_SECRET, // only needed if specified in `database/prisma.yml` (value set in `.env`)
     }),
   }),
-})
-server.start(() => console.log(`Server is running on http://localhost:4000`))
+});
+server.start(() => console.log(`Server is running on http://localhost:4000`));

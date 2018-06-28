@@ -1,4 +1,4 @@
-import { Context } from '../utils'
+import { Context } from '../utils';
 
 export const Subscription = {
   feedSubscription: {
@@ -11,8 +11,8 @@ export const Subscription = {
             },
           },
         },
-        info,
-      )
+        info
+      );
     },
   },
-}
+};
