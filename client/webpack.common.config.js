@@ -24,6 +24,11 @@ const RULES = {
   },
 };
 
+const PLUGINS = {
+  htmlWebpack: new HtmlWebpackPlugin({ template: 'index.html' }),
+  nameModules: new webpack.NamedModulesPlugin(),
+};
+
 const common = compose(
   set(LENS.resolveModules, ['node_modules']),
   set(LENS.rules, []),
@@ -44,19 +49,16 @@ const development = compose(
 
 const resolve = over(LENS.resolveModules, concat(['src']));
 
-const rules = (list: $Values<typeof RULES>[]) => over(LENS.rules, concat(list));
+// $FlowIgnore
+const rules = list => over(LENS.rules, concat(list));
 
-const plugins = over(
-  LENS.plugins,
-  concat([
-    new HtmlWebpackPlugin({ template: 'index.html' }),
-    new webpack.NamedModulesPlugin(),
-  ])
-);
+// $FlowIgnore
+const plugins = list => over(LENS.plugins, concat(list));
 
 module.exports = {
   common,
   RULES,
+  PLUGINS,
   development,
   resolve,
   rules,
