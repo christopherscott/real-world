@@ -1,10 +1,6 @@
 mutation {
   first: createPost(
-    data: {
-      title: "Hello World 👋"
-      text: "I like turtles."
-      isPublished: true
-    }
+    data: { title: "Hello World 👋", text: "I like turtles." }
   ) {
     id
   }
@@ -13,18 +9,13 @@ mutation {
     data: {
       title: "Join us at GraphQL Europe 🇪🇺 "
       text: "Get a 10%-discount with this promo code on graphql-europe.org: gql-boilerplates"
-      isPublished: true
     }
   ) {
     id
   }
 
   third: createPost(
-    data: {
-      title: "Solving world hunger"
-      text: "This is a draft..."
-      isPublished: false
-    }
+    data: { title: "Solving world hunger", text: "This is a draft..." }
   ) {
     id
   }

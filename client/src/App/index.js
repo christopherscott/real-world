@@ -12,7 +12,7 @@ import { hot } from 'react-hot-loader';
 import IndexPage from '../pages/index';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4466',
+  uri: 'http://localhost:4000',
   credentials: 'same-origin',
 });
 
