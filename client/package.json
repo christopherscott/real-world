@@ -4,11 +4,12 @@
   "description": "real world",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --config ./webpack.dev.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config ./webpack.prod.config.js"
+    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --config webpack.dev.config.js",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
+    "gen:schema": "apollo-codegen introspect-schema http://localhost:4000 --output src/generated/schema.json",
+    "gen:flow:types": "apollo-codegen generate 'src/**/*.js' --schema src/generated/schema.json --output src/generated/types.flow.js --target flow --addTypename --useFlowExactObjects --useFlowReadOnlyTypes"
   },
   "dependencies": {
-    "apollo-boost": "^0.1.10",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
     "apollo-link": "^1.2.2",
@@ -30,6 +31,7 @@
     "@babel/preset-env": "^7.0.0-beta.51",
     "@babel/preset-flow": "^7.0.0-beta.51",
     "@babel/preset-react": "^7.0.0-beta.51",
+    "apollo-codegen": "^0.20.2",
     "babel-eslint": "^8.2.5",
     "babel-loader": "^8.0.0-beta.4",
     "cross-env": "^5.2.0",
