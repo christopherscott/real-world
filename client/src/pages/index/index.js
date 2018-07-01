@@ -19,7 +19,10 @@ const SEARCH_POSTS = gql`
 `;
 
 const IndexPage = () => (
-  <Query query={SEARCH_POSTS} variables={{ search: '' }}>
+  <Query
+    query={SEARCH_POSTS}
+    variables={({ search: '' }: SearchPostsVariables)}
+  >
     {({
       loading,
       error,
