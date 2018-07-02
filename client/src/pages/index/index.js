@@ -29,7 +29,7 @@ const IndexPage = () => (
       data: { search },
     }: QueryRenderProps<SearchPosts, SearchPostsVariables>) => (
       <React.Fragment>
-        {/* {loading && 'lodaing'} */}
+        {loading && 'lodaing'}
         {error && 'error'}
         {!loading &&
           !error &&

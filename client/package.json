@@ -4,10 +4,11 @@
   "description": "real world",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --config webpack.dev.config.js",
-    "build": "cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
+    "start": "npx cross-env NODE_ENV=development webpack-dev-server --hot --config webpack.dev.config.js",
+    "build": "npx cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
     "gen:schema": "npx apollo-codegen introspect-schema http://localhost:4000 --output src/generated/schema.json",
     "gen:flow:types": "npx apollo-codegen generate 'src/**/*.js' --schema src/generated/schema.json --output src/generated/types.flow.js --target flow --addTypename --useFlowExactObjects --useFlowReadOnlyTypes",
+    "generate:types": "npx npm-run-all gen:*",
     "commit": "npx git-cz"
   },
   "dependencies": {
@@ -34,7 +35,6 @@
     "@babel/preset-react": "^7.0.0-beta.51",
     "babel-eslint": "^8.2.5",
     "babel-loader": "^8.0.0-beta.4",
-    "cross-env": "^5.2.0",
     "eslint": "^5.0.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-prettier": "^2.9.0",
