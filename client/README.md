@@ -1,13 +1,1 @@
-# STARTER KIT
-
-## Usage
-
-```js
-R.compose(
-  development,
-  resolve,
-  rules([RULES.babel, RULES.css, RULES.assets]),
-  plugins,
-  common
-)({});
-```
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
