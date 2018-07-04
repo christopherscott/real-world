@@ -3,7 +3,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "npm-run-all --parallel start playground",
-    "playground": "graphql playground"
+    "playground": "graphql playground",
+    "commit": "npx git-cz"
   },
   "dependencies": {
     "graphql-import": "^0.6.0",
