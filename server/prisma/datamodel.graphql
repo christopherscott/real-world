@@ -1,5 +1,35 @@
-type Post {
+type Film {
   id: ID! @unique
   title: String!
-  text: String!
+  year: DateTime!
+  released: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
+  genres: [Genre!]!
+  directors: [Person!]! @relation(name: "DirectedFilms")
+  writers: [Person!]! @relation(name: "WrittenFilms")
+  actors: [Person!]! @relation(name: "PlayedFilms")
+}
+
+type Person {
+  id: ID! @unique
+  firstName: String!
+  lastName: String!
+  jobTitles: [Profession!]!
+  directedFilms: [Film!]! @relation(name: "DirectedFilms")
+  writtenFilms: [Film!]! @relation(name: "WrittenFilms")
+  playedFilms: [Film!]! @relation(name: "PlayedFilms")
+}
+
+type Profession {
+  id: ID! @unique
+  profession: String!
+}
+
+type Genre {
+  id: ID! @unique
+  genre: String!
 }
