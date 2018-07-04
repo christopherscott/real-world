@@ -2,7 +2,6 @@ type Film {
   id: ID! @unique
   title: String!
   year: DateTime!
-  released: DateTime!
   runtime: DateTime!
   plot: String!
   poster: String!
@@ -18,15 +17,9 @@ type Person {
   id: ID! @unique
   firstName: String!
   lastName: String!
-  jobTitles: [Profession!]!
   directedFilms: [Film!]! @relation(name: "DirectedFilms")
   writtenFilms: [Film!]! @relation(name: "WrittenFilms")
   playedFilms: [Film!]! @relation(name: "PlayedFilms")
-}
-
-type Profession {
-  id: ID! @unique
-  profession: String!
 }
 
 type Genre {

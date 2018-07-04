@@ -3,7 +3,7 @@ endpoint: http://localhost:4466
 datamodel: datamodel.graphql
 
 seed:
-  import: seed.graphql
+  run: npx ts-node ./data/seed.ts
 
 hooks:
   post-deploy:

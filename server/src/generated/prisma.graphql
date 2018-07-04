@@ -1,7 +1,15 @@
 # source: http://localhost:4466
-# timestamp: Sun Jul 01 2018 15:30:48 GMT-0500 (CDT)
+# timestamp: Wed Jul 04 2018 17:02:19 GMT-0500 (CDT)
 
-type AggregatePost {
+type AggregateFilm {
+  count: Int!
+}
+
+type AggregateGenre {
+  count: Int!
+}
+
+type AggregatePerson {
   count: Int!
 }
 
@@ -10,113 +18,160 @@ type BatchPayload {
   count: Long!
 }
 
-"""
-The `Long` scalar type represents non-fractional signed whole numeric values.
-Long can represent values between -(2^63) and 2^63 - 1.
-"""
-scalar Long
+scalar DateTime
 
-type Mutation {
-  createPost(data: PostCreateInput!): Post!
-  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
-  deletePost(where: PostWhereUniqueInput!): Post
-  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
-  updateManyPosts(data: PostUpdateInput!, where: PostWhereInput): BatchPayload!
-  deleteManyPosts(where: PostWhereInput): BatchPayload!
-}
-
-enum MutationType {
-  CREATED
-  UPDATED
-  DELETED
-}
-
-"""An object with an ID"""
-interface Node {
-  """The id of the object."""
-  id: ID!
-}
-
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
-
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
-
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
-
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
-}
-
-type Post implements Node {
+type Film implements Node {
   id: ID!
   title: String!
-  text: String!
+  year: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
+  genres(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Genre!]
+  directors(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
+  writers(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
+  actors(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
 }
 
 """A connection to a list of items."""
-type PostConnection {
+type FilmConnection {
   """Information to aid in pagination."""
   pageInfo: PageInfo!
 
   """A list of edges."""
-  edges: [PostEdge]!
-  aggregate: AggregatePost!
+  edges: [FilmEdge]!
+  aggregate: AggregateFilm!
 }
 
-input PostCreateInput {
+input FilmCreateInput {
   title: String!
-  text: String!
+  year: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
+  genres: GenreCreateManyInput
+  directors: PersonCreateManyWithoutDirectedFilmsInput
+  writers: PersonCreateManyWithoutWrittenFilmsInput
+  actors: PersonCreateManyWithoutPlayedFilmsInput
+}
+
+input FilmCreateManyWithoutActorsInput {
+  create: [FilmCreateWithoutActorsInput!]
+  connect: [FilmWhereUniqueInput!]
+}
+
+input FilmCreateManyWithoutDirectorsInput {
+  create: [FilmCreateWithoutDirectorsInput!]
+  connect: [FilmWhereUniqueInput!]
+}
+
+input FilmCreateManyWithoutWritersInput {
+  create: [FilmCreateWithoutWritersInput!]
+  connect: [FilmWhereUniqueInput!]
+}
+
+input FilmCreateWithoutActorsInput {
+  title: String!
+  year: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
+  genres: GenreCreateManyInput
+  directors: PersonCreateManyWithoutDirectedFilmsInput
+  writers: PersonCreateManyWithoutWrittenFilmsInput
+}
+
+input FilmCreateWithoutDirectorsInput {
+  title: String!
+  year: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
+  genres: GenreCreateManyInput
+  writers: PersonCreateManyWithoutWrittenFilmsInput
+  actors: PersonCreateManyWithoutPlayedFilmsInput
+}
+
+input FilmCreateWithoutWritersInput {
+  title: String!
+  year: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
+  genres: GenreCreateManyInput
+  directors: PersonCreateManyWithoutDirectedFilmsInput
+  actors: PersonCreateManyWithoutPlayedFilmsInput
 }
 
 """An edge in a connection."""
-type PostEdge {
+type FilmEdge {
   """The item at the end of the edge."""
-  node: Post!
+  node: Film!
 
   """A cursor for use in pagination."""
   cursor: String!
 }
 
-enum PostOrderByInput {
+enum FilmOrderByInput {
   id_ASC
   id_DESC
   title_ASC
   title_DESC
-  text_ASC
-  text_DESC
+  year_ASC
+  year_DESC
+  runtime_ASC
+  runtime_DESC
+  plot_ASC
+  plot_DESC
+  poster_ASC
+  poster_DESC
+  rating_ASC
+  rating_DESC
+  votes_ASC
+  votes_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
 }
 
-type PostPreviousValues {
+type FilmPreviousValues {
   id: ID!
   title: String!
-  text: String!
+  year: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
 }
 
-type PostSubscriptionPayload {
+type FilmSubscriptionPayload {
   mutation: MutationType!
-  node: Post
+  node: Film
   updatedFields: [String!]
-  previousValues: PostPreviousValues
+  previousValues: FilmPreviousValues
 }
 
-input PostSubscriptionWhereInput {
+input FilmSubscriptionWhereInput {
   """Logical AND on all given filters."""
-  AND: [PostSubscriptionWhereInput!]
+  AND: [FilmSubscriptionWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [PostSubscriptionWhereInput!]
+  OR: [FilmSubscriptionWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [PostSubscriptionWhereInput!]
+  NOT: [FilmSubscriptionWhereInput!]
 
   """
   The subscription event gets dispatched when it's listed in mutation_in
@@ -137,23 +192,131 @@ input PostSubscriptionWhereInput {
   The subscription event gets only dispatched when some of the field names included in this list have been updated
   """
   updatedFields_contains_some: [String!]
-  node: PostWhereInput
+  node: FilmWhereInput
 }
 
-input PostUpdateInput {
+input FilmUpdateInput {
   title: String
-  text: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres: GenreUpdateManyInput
+  directors: PersonUpdateManyWithoutDirectedFilmsInput
+  writers: PersonUpdateManyWithoutWrittenFilmsInput
+  actors: PersonUpdateManyWithoutPlayedFilmsInput
 }
 
-input PostWhereInput {
+input FilmUpdateManyWithoutActorsInput {
+  create: [FilmCreateWithoutActorsInput!]
+  connect: [FilmWhereUniqueInput!]
+  disconnect: [FilmWhereUniqueInput!]
+  delete: [FilmWhereUniqueInput!]
+  update: [FilmUpdateWithWhereUniqueWithoutActorsInput!]
+  upsert: [FilmUpsertWithWhereUniqueWithoutActorsInput!]
+}
+
+input FilmUpdateManyWithoutDirectorsInput {
+  create: [FilmCreateWithoutDirectorsInput!]
+  connect: [FilmWhereUniqueInput!]
+  disconnect: [FilmWhereUniqueInput!]
+  delete: [FilmWhereUniqueInput!]
+  update: [FilmUpdateWithWhereUniqueWithoutDirectorsInput!]
+  upsert: [FilmUpsertWithWhereUniqueWithoutDirectorsInput!]
+}
+
+input FilmUpdateManyWithoutWritersInput {
+  create: [FilmCreateWithoutWritersInput!]
+  connect: [FilmWhereUniqueInput!]
+  disconnect: [FilmWhereUniqueInput!]
+  delete: [FilmWhereUniqueInput!]
+  update: [FilmUpdateWithWhereUniqueWithoutWritersInput!]
+  upsert: [FilmUpsertWithWhereUniqueWithoutWritersInput!]
+}
+
+input FilmUpdateWithoutActorsDataInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres: GenreUpdateManyInput
+  directors: PersonUpdateManyWithoutDirectedFilmsInput
+  writers: PersonUpdateManyWithoutWrittenFilmsInput
+}
+
+input FilmUpdateWithoutDirectorsDataInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres: GenreUpdateManyInput
+  writers: PersonUpdateManyWithoutWrittenFilmsInput
+  actors: PersonUpdateManyWithoutPlayedFilmsInput
+}
+
+input FilmUpdateWithoutWritersDataInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres: GenreUpdateManyInput
+  directors: PersonUpdateManyWithoutDirectedFilmsInput
+  actors: PersonUpdateManyWithoutPlayedFilmsInput
+}
+
+input FilmUpdateWithWhereUniqueWithoutActorsInput {
+  where: FilmWhereUniqueInput!
+  data: FilmUpdateWithoutActorsDataInput!
+}
+
+input FilmUpdateWithWhereUniqueWithoutDirectorsInput {
+  where: FilmWhereUniqueInput!
+  data: FilmUpdateWithoutDirectorsDataInput!
+}
+
+input FilmUpdateWithWhereUniqueWithoutWritersInput {
+  where: FilmWhereUniqueInput!
+  data: FilmUpdateWithoutWritersDataInput!
+}
+
+input FilmUpsertWithWhereUniqueWithoutActorsInput {
+  where: FilmWhereUniqueInput!
+  update: FilmUpdateWithoutActorsDataInput!
+  create: FilmCreateWithoutActorsInput!
+}
+
+input FilmUpsertWithWhereUniqueWithoutDirectorsInput {
+  where: FilmWhereUniqueInput!
+  update: FilmUpdateWithoutDirectorsDataInput!
+  create: FilmCreateWithoutDirectorsInput!
+}
+
+input FilmUpsertWithWhereUniqueWithoutWritersInput {
+  where: FilmWhereUniqueInput!
+  update: FilmUpdateWithoutWritersDataInput!
+  create: FilmCreateWithoutWritersInput!
+}
+
+input FilmWhereInput {
   """Logical AND on all given filters."""
-  AND: [PostWhereInput!]
+  AND: [FilmWhereInput!]
 
   """Logical OR on all given filters."""
-  OR: [PostWhereInput!]
+  OR: [FilmWhereInput!]
 
   """Logical NOT on all given filters combined by AND."""
-  NOT: [PostWhereInput!]
+  NOT: [FilmWhereInput!]
   id: ID
 
   """All values that are not equal to given value."""
@@ -234,56 +397,833 @@ input PostWhereInput {
 
   """All values not ending with the given string."""
   title_not_ends_with: String
-  text: String
+  year: DateTime
 
   """All values that are not equal to given value."""
-  text_not: String
+  year_not: DateTime
 
   """All values that are contained in given list."""
-  text_in: [String!]
+  year_in: [DateTime!]
 
   """All values that are not contained in given list."""
-  text_not_in: [String!]
+  year_not_in: [DateTime!]
 
   """All values less than the given value."""
-  text_lt: String
+  year_lt: DateTime
 
   """All values less than or equal the given value."""
-  text_lte: String
+  year_lte: DateTime
 
   """All values greater than the given value."""
-  text_gt: String
+  year_gt: DateTime
 
   """All values greater than or equal the given value."""
-  text_gte: String
+  year_gte: DateTime
+  runtime: DateTime
+
+  """All values that are not equal to given value."""
+  runtime_not: DateTime
+
+  """All values that are contained in given list."""
+  runtime_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  runtime_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  runtime_lt: DateTime
+
+  """All values less than or equal the given value."""
+  runtime_lte: DateTime
+
+  """All values greater than the given value."""
+  runtime_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  runtime_gte: DateTime
+  plot: String
+
+  """All values that are not equal to given value."""
+  plot_not: String
+
+  """All values that are contained in given list."""
+  plot_in: [String!]
+
+  """All values that are not contained in given list."""
+  plot_not_in: [String!]
+
+  """All values less than the given value."""
+  plot_lt: String
+
+  """All values less than or equal the given value."""
+  plot_lte: String
+
+  """All values greater than the given value."""
+  plot_gt: String
+
+  """All values greater than or equal the given value."""
+  plot_gte: String
 
   """All values containing the given string."""
-  text_contains: String
+  plot_contains: String
 
   """All values not containing the given string."""
-  text_not_contains: String
+  plot_not_contains: String
 
   """All values starting with the given string."""
-  text_starts_with: String
+  plot_starts_with: String
 
   """All values not starting with the given string."""
-  text_not_starts_with: String
+  plot_not_starts_with: String
 
   """All values ending with the given string."""
-  text_ends_with: String
+  plot_ends_with: String
 
   """All values not ending with the given string."""
-  text_not_ends_with: String
+  plot_not_ends_with: String
+  poster: String
+
+  """All values that are not equal to given value."""
+  poster_not: String
+
+  """All values that are contained in given list."""
+  poster_in: [String!]
+
+  """All values that are not contained in given list."""
+  poster_not_in: [String!]
+
+  """All values less than the given value."""
+  poster_lt: String
+
+  """All values less than or equal the given value."""
+  poster_lte: String
+
+  """All values greater than the given value."""
+  poster_gt: String
+
+  """All values greater than or equal the given value."""
+  poster_gte: String
+
+  """All values containing the given string."""
+  poster_contains: String
+
+  """All values not containing the given string."""
+  poster_not_contains: String
+
+  """All values starting with the given string."""
+  poster_starts_with: String
+
+  """All values not starting with the given string."""
+  poster_not_starts_with: String
+
+  """All values ending with the given string."""
+  poster_ends_with: String
+
+  """All values not ending with the given string."""
+  poster_not_ends_with: String
+  rating: Float
+
+  """All values that are not equal to given value."""
+  rating_not: Float
+
+  """All values that are contained in given list."""
+  rating_in: [Float!]
+
+  """All values that are not contained in given list."""
+  rating_not_in: [Float!]
+
+  """All values less than the given value."""
+  rating_lt: Float
+
+  """All values less than or equal the given value."""
+  rating_lte: Float
+
+  """All values greater than the given value."""
+  rating_gt: Float
+
+  """All values greater than or equal the given value."""
+  rating_gte: Float
+  votes: Int
+
+  """All values that are not equal to given value."""
+  votes_not: Int
+
+  """All values that are contained in given list."""
+  votes_in: [Int!]
+
+  """All values that are not contained in given list."""
+  votes_not_in: [Int!]
+
+  """All values less than the given value."""
+  votes_lt: Int
+
+  """All values less than or equal the given value."""
+  votes_lte: Int
+
+  """All values greater than the given value."""
+  votes_gt: Int
+
+  """All values greater than or equal the given value."""
+  votes_gte: Int
+  genres_every: GenreWhereInput
+  genres_some: GenreWhereInput
+  genres_none: GenreWhereInput
+  directors_every: PersonWhereInput
+  directors_some: PersonWhereInput
+  directors_none: PersonWhereInput
+  writers_every: PersonWhereInput
+  writers_some: PersonWhereInput
+  writers_none: PersonWhereInput
+  actors_every: PersonWhereInput
+  actors_some: PersonWhereInput
+  actors_none: PersonWhereInput
 }
 
-input PostWhereUniqueInput {
+input FilmWhereUniqueInput {
+  id: ID
+}
+
+type Genre implements Node {
+  id: ID!
+  genre: String!
+}
+
+"""A connection to a list of items."""
+type GenreConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [GenreEdge]!
+  aggregate: AggregateGenre!
+}
+
+input GenreCreateInput {
+  genre: String!
+}
+
+input GenreCreateManyInput {
+  create: [GenreCreateInput!]
+  connect: [GenreWhereUniqueInput!]
+}
+
+"""An edge in a connection."""
+type GenreEdge {
+  """The item at the end of the edge."""
+  node: Genre!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum GenreOrderByInput {
+  id_ASC
+  id_DESC
+  genre_ASC
+  genre_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type GenrePreviousValues {
+  id: ID!
+  genre: String!
+}
+
+type GenreSubscriptionPayload {
+  mutation: MutationType!
+  node: Genre
+  updatedFields: [String!]
+  previousValues: GenrePreviousValues
+}
+
+input GenreSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GenreSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GenreSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GenreSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: GenreWhereInput
+}
+
+input GenreUpdateDataInput {
+  genre: String
+}
+
+input GenreUpdateInput {
+  genre: String
+}
+
+input GenreUpdateManyInput {
+  create: [GenreCreateInput!]
+  connect: [GenreWhereUniqueInput!]
+  disconnect: [GenreWhereUniqueInput!]
+  delete: [GenreWhereUniqueInput!]
+  update: [GenreUpdateWithWhereUniqueNestedInput!]
+  upsert: [GenreUpsertWithWhereUniqueNestedInput!]
+}
+
+input GenreUpdateWithWhereUniqueNestedInput {
+  where: GenreWhereUniqueInput!
+  data: GenreUpdateDataInput!
+}
+
+input GenreUpsertWithWhereUniqueNestedInput {
+  where: GenreWhereUniqueInput!
+  update: GenreUpdateDataInput!
+  create: GenreCreateInput!
+}
+
+input GenreWhereInput {
+  """Logical AND on all given filters."""
+  AND: [GenreWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [GenreWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [GenreWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  genre: String
+
+  """All values that are not equal to given value."""
+  genre_not: String
+
+  """All values that are contained in given list."""
+  genre_in: [String!]
+
+  """All values that are not contained in given list."""
+  genre_not_in: [String!]
+
+  """All values less than the given value."""
+  genre_lt: String
+
+  """All values less than or equal the given value."""
+  genre_lte: String
+
+  """All values greater than the given value."""
+  genre_gt: String
+
+  """All values greater than or equal the given value."""
+  genre_gte: String
+
+  """All values containing the given string."""
+  genre_contains: String
+
+  """All values not containing the given string."""
+  genre_not_contains: String
+
+  """All values starting with the given string."""
+  genre_starts_with: String
+
+  """All values not starting with the given string."""
+  genre_not_starts_with: String
+
+  """All values ending with the given string."""
+  genre_ends_with: String
+
+  """All values not ending with the given string."""
+  genre_not_ends_with: String
+  _MagicalBackRelation_FilmToGenre_every: FilmWhereInput
+  _MagicalBackRelation_FilmToGenre_some: FilmWhereInput
+  _MagicalBackRelation_FilmToGenre_none: FilmWhereInput
+}
+
+input GenreWhereUniqueInput {
+  id: ID
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createFilm(data: FilmCreateInput!): Film!
+  createPerson(data: PersonCreateInput!): Person!
+  createGenre(data: GenreCreateInput!): Genre!
+  updateFilm(data: FilmUpdateInput!, where: FilmWhereUniqueInput!): Film
+  updatePerson(data: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person
+  updateGenre(data: GenreUpdateInput!, where: GenreWhereUniqueInput!): Genre
+  deleteFilm(where: FilmWhereUniqueInput!): Film
+  deletePerson(where: PersonWhereUniqueInput!): Person
+  deleteGenre(where: GenreWhereUniqueInput!): Genre
+  upsertFilm(where: FilmWhereUniqueInput!, create: FilmCreateInput!, update: FilmUpdateInput!): Film!
+  upsertPerson(where: PersonWhereUniqueInput!, create: PersonCreateInput!, update: PersonUpdateInput!): Person!
+  upsertGenre(where: GenreWhereUniqueInput!, create: GenreCreateInput!, update: GenreUpdateInput!): Genre!
+  updateManyFilms(data: FilmUpdateInput!, where: FilmWhereInput): BatchPayload!
+  updateManyPersons(data: PersonUpdateInput!, where: PersonWhereInput): BatchPayload!
+  updateManyGenres(data: GenreUpdateInput!, where: GenreWhereInput): BatchPayload!
+  deleteManyFilms(where: FilmWhereInput): BatchPayload!
+  deleteManyPersons(where: PersonWhereInput): BatchPayload!
+  deleteManyGenres(where: GenreWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Person implements Node {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  directedFilms(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film!]
+  writtenFilms(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film!]
+  playedFilms(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film!]
+}
+
+"""A connection to a list of items."""
+type PersonConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PersonEdge]!
+  aggregate: AggregatePerson!
+}
+
+input PersonCreateInput {
+  firstName: String!
+  lastName: String!
+  directedFilms: FilmCreateManyWithoutDirectorsInput
+  writtenFilms: FilmCreateManyWithoutWritersInput
+  playedFilms: FilmCreateManyWithoutActorsInput
+}
+
+input PersonCreateManyWithoutDirectedFilmsInput {
+  create: [PersonCreateWithoutDirectedFilmsInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateManyWithoutPlayedFilmsInput {
+  create: [PersonCreateWithoutPlayedFilmsInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateManyWithoutWrittenFilmsInput {
+  create: [PersonCreateWithoutWrittenFilmsInput!]
+  connect: [PersonWhereUniqueInput!]
+}
+
+input PersonCreateWithoutDirectedFilmsInput {
+  firstName: String!
+  lastName: String!
+  writtenFilms: FilmCreateManyWithoutWritersInput
+  playedFilms: FilmCreateManyWithoutActorsInput
+}
+
+input PersonCreateWithoutPlayedFilmsInput {
+  firstName: String!
+  lastName: String!
+  directedFilms: FilmCreateManyWithoutDirectorsInput
+  writtenFilms: FilmCreateManyWithoutWritersInput
+}
+
+input PersonCreateWithoutWrittenFilmsInput {
+  firstName: String!
+  lastName: String!
+  directedFilms: FilmCreateManyWithoutDirectorsInput
+  playedFilms: FilmCreateManyWithoutActorsInput
+}
+
+"""An edge in a connection."""
+type PersonEdge {
+  """The item at the end of the edge."""
+  node: Person!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PersonOrderByInput {
+  id_ASC
+  id_DESC
+  firstName_ASC
+  firstName_DESC
+  lastName_ASC
+  lastName_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PersonPreviousValues {
+  id: ID!
+  firstName: String!
+  lastName: String!
+}
+
+type PersonSubscriptionPayload {
+  mutation: MutationType!
+  node: Person
+  updatedFields: [String!]
+  previousValues: PersonPreviousValues
+}
+
+input PersonSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PersonSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PersonSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PersonSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PersonWhereInput
+}
+
+input PersonUpdateInput {
+  firstName: String
+  lastName: String
+  directedFilms: FilmUpdateManyWithoutDirectorsInput
+  writtenFilms: FilmUpdateManyWithoutWritersInput
+  playedFilms: FilmUpdateManyWithoutActorsInput
+}
+
+input PersonUpdateManyWithoutDirectedFilmsInput {
+  create: [PersonCreateWithoutDirectedFilmsInput!]
+  connect: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  delete: [PersonWhereUniqueInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutDirectedFilmsInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutDirectedFilmsInput!]
+}
+
+input PersonUpdateManyWithoutPlayedFilmsInput {
+  create: [PersonCreateWithoutPlayedFilmsInput!]
+  connect: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  delete: [PersonWhereUniqueInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput!]
+}
+
+input PersonUpdateManyWithoutWrittenFilmsInput {
+  create: [PersonCreateWithoutWrittenFilmsInput!]
+  connect: [PersonWhereUniqueInput!]
+  disconnect: [PersonWhereUniqueInput!]
+  delete: [PersonWhereUniqueInput!]
+  update: [PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput!]
+  upsert: [PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput!]
+}
+
+input PersonUpdateWithoutDirectedFilmsDataInput {
+  firstName: String
+  lastName: String
+  writtenFilms: FilmUpdateManyWithoutWritersInput
+  playedFilms: FilmUpdateManyWithoutActorsInput
+}
+
+input PersonUpdateWithoutPlayedFilmsDataInput {
+  firstName: String
+  lastName: String
+  directedFilms: FilmUpdateManyWithoutDirectorsInput
+  writtenFilms: FilmUpdateManyWithoutWritersInput
+}
+
+input PersonUpdateWithoutWrittenFilmsDataInput {
+  firstName: String
+  lastName: String
+  directedFilms: FilmUpdateManyWithoutDirectorsInput
+  playedFilms: FilmUpdateManyWithoutActorsInput
+}
+
+input PersonUpdateWithWhereUniqueWithoutDirectedFilmsInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutDirectedFilmsDataInput!
+}
+
+input PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutPlayedFilmsDataInput!
+}
+
+input PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput {
+  where: PersonWhereUniqueInput!
+  data: PersonUpdateWithoutWrittenFilmsDataInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutDirectedFilmsInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateWithoutDirectedFilmsDataInput!
+  create: PersonCreateWithoutDirectedFilmsInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateWithoutPlayedFilmsDataInput!
+  create: PersonCreateWithoutPlayedFilmsInput!
+}
+
+input PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput {
+  where: PersonWhereUniqueInput!
+  update: PersonUpdateWithoutWrittenFilmsDataInput!
+  create: PersonCreateWithoutWrittenFilmsInput!
+}
+
+input PersonWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PersonWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PersonWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PersonWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  firstName: String
+
+  """All values that are not equal to given value."""
+  firstName_not: String
+
+  """All values that are contained in given list."""
+  firstName_in: [String!]
+
+  """All values that are not contained in given list."""
+  firstName_not_in: [String!]
+
+  """All values less than the given value."""
+  firstName_lt: String
+
+  """All values less than or equal the given value."""
+  firstName_lte: String
+
+  """All values greater than the given value."""
+  firstName_gt: String
+
+  """All values greater than or equal the given value."""
+  firstName_gte: String
+
+  """All values containing the given string."""
+  firstName_contains: String
+
+  """All values not containing the given string."""
+  firstName_not_contains: String
+
+  """All values starting with the given string."""
+  firstName_starts_with: String
+
+  """All values not starting with the given string."""
+  firstName_not_starts_with: String
+
+  """All values ending with the given string."""
+  firstName_ends_with: String
+
+  """All values not ending with the given string."""
+  firstName_not_ends_with: String
+  lastName: String
+
+  """All values that are not equal to given value."""
+  lastName_not: String
+
+  """All values that are contained in given list."""
+  lastName_in: [String!]
+
+  """All values that are not contained in given list."""
+  lastName_not_in: [String!]
+
+  """All values less than the given value."""
+  lastName_lt: String
+
+  """All values less than or equal the given value."""
+  lastName_lte: String
+
+  """All values greater than the given value."""
+  lastName_gt: String
+
+  """All values greater than or equal the given value."""
+  lastName_gte: String
+
+  """All values containing the given string."""
+  lastName_contains: String
+
+  """All values not containing the given string."""
+  lastName_not_contains: String
+
+  """All values starting with the given string."""
+  lastName_starts_with: String
+
+  """All values not starting with the given string."""
+  lastName_not_starts_with: String
+
+  """All values ending with the given string."""
+  lastName_ends_with: String
+
+  """All values not ending with the given string."""
+  lastName_not_ends_with: String
+  directedFilms_every: FilmWhereInput
+  directedFilms_some: FilmWhereInput
+  directedFilms_none: FilmWhereInput
+  writtenFilms_every: FilmWhereInput
+  writtenFilms_some: FilmWhereInput
+  writtenFilms_none: FilmWhereInput
+  playedFilms_every: FilmWhereInput
+  playedFilms_some: FilmWhereInput
+  playedFilms_none: FilmWhereInput
+}
+
+input PersonWhereUniqueInput {
   id: ID
 }
 
 type Query {
-  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
-  post(where: PostWhereUniqueInput!): Post
-  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  films(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film]!
+  persons(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person]!
+  genres(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Genre]!
+  film(where: FilmWhereUniqueInput!): Film
+  person(where: PersonWhereUniqueInput!): Person
+  genre(where: GenreWhereUniqueInput!): Genre
+  filmsConnection(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FilmConnection!
+  personsConnection(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PersonConnection!
+  genresConnection(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GenreConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -293,5 +1233,7 @@ type Query {
 }
 
 type Subscription {
-  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  film(where: FilmSubscriptionWhereInput): FilmSubscriptionPayload
+  person(where: PersonSubscriptionWhereInput): PersonSubscriptionPayload
+  genre(where: GenreSubscriptionWhereInput): GenreSubscriptionPayload
 }
