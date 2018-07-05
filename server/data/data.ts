@@ -21,16 +21,29 @@ import {
   replace,
 } from 'ramda';
 
-const toISO = date => new Date(date).toISOString();
+type Film = {
+  title: string;
+  year: string;
+  runtime: string;
+  plot: string;
+  poster: string;
+  rating: number;
+  votes: number;
+  genres: string[];
+  directors: string[];
+  writers: string[];
+  actors: string[];
+};
+
+const toISO = (date: string | number): string => new Date(date).toISOString();
 
 const renameKeys = curry((keysMap, obj) =>
   reduce((acc, key) => assoc(keysMap[key] || key, obj[key], acc), {}, keys(obj))
 );
 
-const renameBy = curry((fn, obj) =>
+const renameBy = curry((fn: (string) => string, obj) =>
   compose(
     fromPairs,
-    // @ts-ignore
     map(adjust(fn, 0)),
     toPairs
   )(obj)
@@ -121,7 +134,7 @@ const normalizeValues = compose(
   normalizeDates
 );
 
-export default map(
+const data = map(
   compose(
     normalizeValues,
     normalizeKeys,
@@ -129,3 +142,5 @@ export default map(
   ),
   readdirSync('./data/json')
 );
+
+export default data as Film[];

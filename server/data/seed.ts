@@ -50,10 +50,12 @@ const beforeSeed = async () => {
   await beforeSeed();
 
   // Seed genres
-  forEach(async genre => {
-    // @ts-ignore
-    await db.mutation.createGenre({ data: { genre } });
-  }, genres);
+  forEach(
+    async genre => {
+      await db.mutation.createGenre({ data: { genre } });
+    },
+    genres as string[]
+  );
 
   // Seed people
   forEach(async person => {
@@ -62,27 +64,22 @@ const beforeSeed = async () => {
 
   // Seed films
   forEach(async ({ genres, directors, writers, actors, ...film }) => {
-    // @ts-ignore
     const genreIds = await db.query.genres({
-      where: { OR: map(objOf('genre'), genres) },
+      where: { OR: map(genre => ({ genre }), genres) },
     });
 
-    // @ts-ignore
     const directorIds = await db.query.persons({
       where: { OR: map(name, directors) },
     });
 
-    // @ts-ignore
     const writerIds = await db.query.persons({
       where: { OR: map(name, writers) },
     });
 
-    // @ts-ignore
     const actorIds = await db.query.persons({
       where: { OR: map(name, actors) },
     });
 
-    // @ts-ignore
     await db.mutation.createFilm({
       data: {
         ...film,

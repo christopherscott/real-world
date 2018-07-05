@@ -1,12 +1,12 @@
-# import Post from "./generated/prisma.graphql"
+# import Film from "./generated/prisma.graphql"
 
 type Query {
-  posts: [Post!]!
-  post(id: ID!): Post
-  search(search: String!): [Post!]!
+  films: [Film!]!
+  film(id: ID!): Film!
+  search(search: String!): [Film!]!
 }
 
-type Mutation {
-  createPost(title: String!, text: String): Post
-  deletePost(id: ID!): Post
-}
+# type Mutation {
+#  createPost(title: String!, text: String): Post
+#  deletePost(id: ID!): Post
+#}
