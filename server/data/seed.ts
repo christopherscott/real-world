@@ -1,15 +1,5 @@
 import data from './data';
-import {
-  map,
-  prop,
-  compose,
-  flatten,
-  uniq,
-  split,
-  forEach,
-  objOf,
-  pick,
-} from 'ramda';
+import { map, prop, compose, flatten, uniq, split, forEach, pick } from 'ramda';
 import { Prisma } from '../src/generated/prisma';
 
 const db: Prisma = new Prisma({
@@ -41,9 +31,9 @@ const people = compose(
 )([directors, writers, actors]);
 
 const beforeSeed = async () => {
-  await db.mutation.deleteManyGenres({ where: { id_not: '' } });
-  await db.mutation.deleteManyPersons({ where: { id_not: '' } });
-  await db.mutation.deleteManyFilms({ where: { id_not: '' } });
+  await db.mutation.deleteManyGenres({});
+  await db.mutation.deleteManyPersons({});
+  await db.mutation.deleteManyFilms({});
 };
 
 (async () => {
