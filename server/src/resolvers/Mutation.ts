@@ -1,16 +1,27 @@
 import { Context } from '../utils';
+import { User, Film, Comment } from '../generated/prisma';
 
-const createPost = (
+const addComment = (
   parent,
-  { title, text }: { title: string; text: string },
+  {
+    userId,
+    filmId,
+    text,
+  }: { userId: User['id']; filmId: Film['id']; text: Comment['text'] },
   context: Context,
   info
-) => context.db.mutation.createPost({ data: { title, text } }, info);
-
-const deletePost = (parent, { id }: { id: string }, context: Context, info) =>
-  context.db.mutation.deletePost({ where: { id } }, info);
+) =>
+  context.db.mutation.createComment(
+    {
+      data: {
+        text,
+        user: { connect: { id: userId } },
+        film: { connect: { id: filmId } },
+      },
+    },
+    info
+  );
 
 export default {
-  createPost,
-  deletePost,
+  addComment,
 };

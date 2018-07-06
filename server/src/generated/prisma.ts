@@ -6,12 +6,18 @@ import { makePrismaBindingClass, BasePrismaOptions } from 'prisma-binding'
 export interface Query {
     films: <T = Film[]>(args: { where?: FilmWhereInput, orderBy?: FilmOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     persons: <T = Person[]>(args: { where?: PersonWhereInput, orderBy?: PersonOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    comments: <T = Comment[]>(args: { where?: CommentWhereInput, orderBy?: CommentOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    users: <T = User[]>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     genres: <T = Genre[]>(args: { where?: GenreWhereInput, orderBy?: GenreOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     film: <T = Film | null>(args: { where: FilmWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     person: <T = Person | null>(args: { where: PersonWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    comment: <T = Comment | null>(args: { where: CommentWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    user: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     genre: <T = Genre | null>(args: { where: GenreWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     filmsConnection: <T = FilmConnection>(args: { where?: FilmWhereInput, orderBy?: FilmOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     personsConnection: <T = PersonConnection>(args: { where?: PersonWhereInput, orderBy?: PersonOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    commentsConnection: <T = CommentConnection>(args: { where?: CommentWhereInput, orderBy?: CommentOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    usersConnection: <T = UserConnection>(args: { where?: UserWhereInput, orderBy?: UserOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     genresConnection: <T = GenreConnection>(args: { where?: GenreWhereInput, orderBy?: GenreOrderByInput, skip?: Int, after?: String, before?: String, first?: Int, last?: Int }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     node: <T = Node | null>(args: { id: ID_Output }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
@@ -19,33 +25,49 @@ export interface Query {
 export interface Mutation {
     createFilm: <T = Film>(args: { data: FilmCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createPerson: <T = Person>(args: { data: PersonCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createComment: <T = Comment>(args: { data: CommentCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    createUser: <T = User>(args: { data: UserCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     createGenre: <T = Genre>(args: { data: GenreCreateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateFilm: <T = Film | null>(args: { data: FilmUpdateInput, where: FilmWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updatePerson: <T = Person | null>(args: { data: PersonUpdateInput, where: PersonWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateComment: <T = Comment | null>(args: { data: CommentUpdateInput, where: CommentWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateUser: <T = User | null>(args: { data: UserUpdateInput, where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateGenre: <T = Genre | null>(args: { data: GenreUpdateInput, where: GenreWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteFilm: <T = Film | null>(args: { where: FilmWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deletePerson: <T = Person | null>(args: { where: PersonWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteComment: <T = Comment | null>(args: { where: CommentWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteUser: <T = User | null>(args: { where: UserWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteGenre: <T = Genre | null>(args: { where: GenreWhereUniqueInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertFilm: <T = Film>(args: { where: FilmWhereUniqueInput, create: FilmCreateInput, update: FilmUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertPerson: <T = Person>(args: { where: PersonWhereUniqueInput, create: PersonCreateInput, update: PersonUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertComment: <T = Comment>(args: { where: CommentWhereUniqueInput, create: CommentCreateInput, update: CommentUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    upsertUser: <T = User>(args: { where: UserWhereUniqueInput, create: UserCreateInput, update: UserUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     upsertGenre: <T = Genre>(args: { where: GenreWhereUniqueInput, create: GenreCreateInput, update: GenreUpdateInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyFilms: <T = BatchPayload>(args: { data: FilmUpdateInput, where?: FilmWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyPersons: <T = BatchPayload>(args: { data: PersonUpdateInput, where?: PersonWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyComments: <T = BatchPayload>(args: { data: CommentUpdateInput, where?: CommentWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    updateManyUsers: <T = BatchPayload>(args: { data: UserUpdateInput, where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     updateManyGenres: <T = BatchPayload>(args: { data: GenreUpdateInput, where?: GenreWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyFilms: <T = BatchPayload>(args: { where?: FilmWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyPersons: <T = BatchPayload>(args: { where?: PersonWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyComments: <T = BatchPayload>(args: { where?: CommentWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
+    deleteManyUsers: <T = BatchPayload>(args: { where?: UserWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> ,
     deleteManyGenres: <T = BatchPayload>(args: { where?: GenreWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<T> 
   }
 
 export interface Subscription {
     film: <T = FilmSubscriptionPayload | null>(args: { where?: FilmSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     person: <T = PersonSubscriptionPayload | null>(args: { where?: PersonSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    comment: <T = CommentSubscriptionPayload | null>(args: { where?: CommentSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
+    user: <T = UserSubscriptionPayload | null>(args: { where?: UserSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> ,
     genre: <T = GenreSubscriptionPayload | null>(args: { where?: GenreSubscriptionWhereInput }, info?: GraphQLResolveInfo | string, options?: Options) => Promise<AsyncIterator<T>> 
   }
 
 export interface Exists {
   Film: (where?: FilmWhereInput) => Promise<boolean>
   Person: (where?: PersonWhereInput) => Promise<boolean>
+  Comment: (where?: CommentWhereInput) => Promise<boolean>
+  User: (where?: UserWhereInput) => Promise<boolean>
   Genre: (where?: GenreWhereInput) => Promise<boolean>
 }
 
@@ -71,7 +93,11 @@ export interface BindingConstructor<T> {
  * Type Defs
 */
 
-const typeDefs = `type AggregateFilm {
+const typeDefs = `type AggregateComment {
+  count: Int!
+}
+
+type AggregateFilm {
   count: Int!
 }
 
@@ -83,9 +109,272 @@ type AggregatePerson {
   count: Int!
 }
 
+type AggregateUser {
+  count: Int!
+}
+
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+type Comment implements Node {
+  id: ID!
+  user(where: UserWhereInput): User!
+  film(where: FilmWhereInput): Film!
+  text: String!
+}
+
+"""A connection to a list of items."""
+type CommentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CommentEdge]!
+  aggregate: AggregateComment!
+}
+
+input CommentCreateInput {
+  text: String!
+  user: UserCreateOneInput!
+  film: FilmCreateOneWithoutCommentsInput!
+}
+
+input CommentCreateManyInput {
+  create: [CommentCreateInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateManyWithoutFilmInput {
+  create: [CommentCreateWithoutFilmInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutFilmInput {
+  text: String!
+  user: UserCreateOneInput!
+}
+
+"""An edge in a connection."""
+type CommentEdge {
+  """The item at the end of the edge."""
+  node: Comment!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CommentOrderByInput {
+  id_ASC
+  id_DESC
+  text_ASC
+  text_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CommentPreviousValues {
+  id: ID!
+  text: String!
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
+input CommentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CommentWhereInput
+}
+
+input CommentUpdateDataInput {
+  text: String
+  user: UserUpdateOneInput
+  film: FilmUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateInput {
+  text: String
+  user: UserUpdateOneInput
+  film: FilmUpdateOneWithoutCommentsInput
+}
+
+input CommentUpdateManyInput {
+  create: [CommentCreateInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueNestedInput!]
+  upsert: [CommentUpsertWithWhereUniqueNestedInput!]
+}
+
+input CommentUpdateManyWithoutFilmInput {
+  create: [CommentCreateWithoutFilmInput!]
+  connect: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutFilmInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutFilmInput!]
+}
+
+input CommentUpdateWithoutFilmDataInput {
+  text: String
+  user: UserUpdateOneInput
+}
+
+input CommentUpdateWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutFilmInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutFilmDataInput!
+}
+
+input CommentUpsertWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateDataInput!
+  create: CommentCreateInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutFilmInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutFilmDataInput!
+  create: CommentCreateWithoutFilmInput!
+}
+
+input CommentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  user: UserWhereInput
+  film: FilmWhereInput
+  _MagicalBackRelation_CommentToPerson_every: PersonWhereInput
+  _MagicalBackRelation_CommentToPerson_some: PersonWhereInput
+  _MagicalBackRelation_CommentToPerson_none: PersonWhereInput
+}
+
+input CommentWhereUniqueInput {
+  id: ID
 }
 
 scalar DateTime
@@ -103,6 +392,7 @@ type Film implements Node {
   directors(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
   writers(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
   actors(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
 """A connection to a list of items."""
@@ -127,6 +417,7 @@ input FilmCreateInput {
   directors: PersonCreateManyWithoutDirectedFilmsInput
   writers: PersonCreateManyWithoutWrittenFilmsInput
   actors: PersonCreateManyWithoutPlayedFilmsInput
+  comments: CommentCreateManyWithoutFilmInput
 }
 
 input FilmCreateManyWithoutActorsInput {
@@ -144,6 +435,11 @@ input FilmCreateManyWithoutWritersInput {
   connect: [FilmWhereUniqueInput!]
 }
 
+input FilmCreateOneWithoutCommentsInput {
+  create: FilmCreateWithoutCommentsInput
+  connect: FilmWhereUniqueInput
+}
+
 input FilmCreateWithoutActorsInput {
   title: String!
   year: DateTime!
@@ -155,6 +451,21 @@ input FilmCreateWithoutActorsInput {
   genres: GenreCreateManyInput
   directors: PersonCreateManyWithoutDirectedFilmsInput
   writers: PersonCreateManyWithoutWrittenFilmsInput
+  comments: CommentCreateManyWithoutFilmInput
+}
+
+input FilmCreateWithoutCommentsInput {
+  title: String!
+  year: DateTime!
+  runtime: DateTime!
+  plot: String!
+  poster: String!
+  rating: Float!
+  votes: Int!
+  genres: GenreCreateManyInput
+  directors: PersonCreateManyWithoutDirectedFilmsInput
+  writers: PersonCreateManyWithoutWrittenFilmsInput
+  actors: PersonCreateManyWithoutPlayedFilmsInput
 }
 
 input FilmCreateWithoutDirectorsInput {
@@ -168,6 +479,7 @@ input FilmCreateWithoutDirectorsInput {
   genres: GenreCreateManyInput
   writers: PersonCreateManyWithoutWrittenFilmsInput
   actors: PersonCreateManyWithoutPlayedFilmsInput
+  comments: CommentCreateManyWithoutFilmInput
 }
 
 input FilmCreateWithoutWritersInput {
@@ -181,6 +493,7 @@ input FilmCreateWithoutWritersInput {
   genres: GenreCreateManyInput
   directors: PersonCreateManyWithoutDirectedFilmsInput
   actors: PersonCreateManyWithoutPlayedFilmsInput
+  comments: CommentCreateManyWithoutFilmInput
 }
 
 """An edge in a connection."""
@@ -277,6 +590,7 @@ input FilmUpdateInput {
   directors: PersonUpdateManyWithoutDirectedFilmsInput
   writers: PersonUpdateManyWithoutWrittenFilmsInput
   actors: PersonUpdateManyWithoutPlayedFilmsInput
+  comments: CommentUpdateManyWithoutFilmInput
 }
 
 input FilmUpdateManyWithoutActorsInput {
@@ -306,6 +620,14 @@ input FilmUpdateManyWithoutWritersInput {
   upsert: [FilmUpsertWithWhereUniqueWithoutWritersInput!]
 }
 
+input FilmUpdateOneWithoutCommentsInput {
+  create: FilmCreateWithoutCommentsInput
+  connect: FilmWhereUniqueInput
+  delete: Boolean
+  update: FilmUpdateWithoutCommentsDataInput
+  upsert: FilmUpsertWithoutCommentsInput
+}
+
 input FilmUpdateWithoutActorsDataInput {
   title: String
   year: DateTime
@@ -317,6 +639,21 @@ input FilmUpdateWithoutActorsDataInput {
   genres: GenreUpdateManyInput
   directors: PersonUpdateManyWithoutDirectedFilmsInput
   writers: PersonUpdateManyWithoutWrittenFilmsInput
+  comments: CommentUpdateManyWithoutFilmInput
+}
+
+input FilmUpdateWithoutCommentsDataInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres: GenreUpdateManyInput
+  directors: PersonUpdateManyWithoutDirectedFilmsInput
+  writers: PersonUpdateManyWithoutWrittenFilmsInput
+  actors: PersonUpdateManyWithoutPlayedFilmsInput
 }
 
 input FilmUpdateWithoutDirectorsDataInput {
@@ -330,6 +667,7 @@ input FilmUpdateWithoutDirectorsDataInput {
   genres: GenreUpdateManyInput
   writers: PersonUpdateManyWithoutWrittenFilmsInput
   actors: PersonUpdateManyWithoutPlayedFilmsInput
+  comments: CommentUpdateManyWithoutFilmInput
 }
 
 input FilmUpdateWithoutWritersDataInput {
@@ -343,6 +681,7 @@ input FilmUpdateWithoutWritersDataInput {
   genres: GenreUpdateManyInput
   directors: PersonUpdateManyWithoutDirectedFilmsInput
   actors: PersonUpdateManyWithoutPlayedFilmsInput
+  comments: CommentUpdateManyWithoutFilmInput
 }
 
 input FilmUpdateWithWhereUniqueWithoutActorsInput {
@@ -358,6 +697,11 @@ input FilmUpdateWithWhereUniqueWithoutDirectorsInput {
 input FilmUpdateWithWhereUniqueWithoutWritersInput {
   where: FilmWhereUniqueInput!
   data: FilmUpdateWithoutWritersDataInput!
+}
+
+input FilmUpsertWithoutCommentsInput {
+  update: FilmUpdateWithoutCommentsDataInput!
+  create: FilmCreateWithoutCommentsInput!
 }
 
 input FilmUpsertWithWhereUniqueWithoutActorsInput {
@@ -647,6 +991,9 @@ input FilmWhereInput {
   actors_every: PersonWhereInput
   actors_some: PersonWhereInput
   actors_none: PersonWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
 }
 
 input FilmWhereUniqueInput {
@@ -876,21 +1223,33 @@ scalar Long
 type Mutation {
   createFilm(data: FilmCreateInput!): Film!
   createPerson(data: PersonCreateInput!): Person!
+  createComment(data: CommentCreateInput!): Comment!
+  createUser(data: UserCreateInput!): User!
   createGenre(data: GenreCreateInput!): Genre!
   updateFilm(data: FilmUpdateInput!, where: FilmWhereUniqueInput!): Film
   updatePerson(data: PersonUpdateInput!, where: PersonWhereUniqueInput!): Person
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateGenre(data: GenreUpdateInput!, where: GenreWhereUniqueInput!): Genre
   deleteFilm(where: FilmWhereUniqueInput!): Film
   deletePerson(where: PersonWhereUniqueInput!): Person
+  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteUser(where: UserWhereUniqueInput!): User
   deleteGenre(where: GenreWhereUniqueInput!): Genre
   upsertFilm(where: FilmWhereUniqueInput!, create: FilmCreateInput!, update: FilmUpdateInput!): Film!
   upsertPerson(where: PersonWhereUniqueInput!, create: PersonCreateInput!, update: PersonUpdateInput!): Person!
+  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
+  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertGenre(where: GenreWhereUniqueInput!, create: GenreCreateInput!, update: GenreUpdateInput!): Genre!
   updateManyFilms(data: FilmUpdateInput!, where: FilmWhereInput): BatchPayload!
   updateManyPersons(data: PersonUpdateInput!, where: PersonWhereInput): BatchPayload!
+  updateManyComments(data: CommentUpdateInput!, where: CommentWhereInput): BatchPayload!
+  updateManyUsers(data: UserUpdateInput!, where: UserWhereInput): BatchPayload!
   updateManyGenres(data: GenreUpdateInput!, where: GenreWhereInput): BatchPayload!
   deleteManyFilms(where: FilmWhereInput): BatchPayload!
   deleteManyPersons(where: PersonWhereInput): BatchPayload!
+  deleteManyComments(where: CommentWhereInput): BatchPayload!
+  deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyGenres(where: GenreWhereInput): BatchPayload!
 }
 
@@ -928,6 +1287,7 @@ type Person implements Node {
   directedFilms(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film!]
   writtenFilms(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film!]
   playedFilms(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
 """A connection to a list of items."""
@@ -946,6 +1306,7 @@ input PersonCreateInput {
   directedFilms: FilmCreateManyWithoutDirectorsInput
   writtenFilms: FilmCreateManyWithoutWritersInput
   playedFilms: FilmCreateManyWithoutActorsInput
+  comments: CommentCreateManyInput
 }
 
 input PersonCreateManyWithoutDirectedFilmsInput {
@@ -968,6 +1329,7 @@ input PersonCreateWithoutDirectedFilmsInput {
   lastName: String!
   writtenFilms: FilmCreateManyWithoutWritersInput
   playedFilms: FilmCreateManyWithoutActorsInput
+  comments: CommentCreateManyInput
 }
 
 input PersonCreateWithoutPlayedFilmsInput {
@@ -975,6 +1337,7 @@ input PersonCreateWithoutPlayedFilmsInput {
   lastName: String!
   directedFilms: FilmCreateManyWithoutDirectorsInput
   writtenFilms: FilmCreateManyWithoutWritersInput
+  comments: CommentCreateManyInput
 }
 
 input PersonCreateWithoutWrittenFilmsInput {
@@ -982,6 +1345,7 @@ input PersonCreateWithoutWrittenFilmsInput {
   lastName: String!
   directedFilms: FilmCreateManyWithoutDirectorsInput
   playedFilms: FilmCreateManyWithoutActorsInput
+  comments: CommentCreateManyInput
 }
 
 """An edge in a connection."""
@@ -1057,6 +1421,7 @@ input PersonUpdateInput {
   directedFilms: FilmUpdateManyWithoutDirectorsInput
   writtenFilms: FilmUpdateManyWithoutWritersInput
   playedFilms: FilmUpdateManyWithoutActorsInput
+  comments: CommentUpdateManyInput
 }
 
 input PersonUpdateManyWithoutDirectedFilmsInput {
@@ -1091,6 +1456,7 @@ input PersonUpdateWithoutDirectedFilmsDataInput {
   lastName: String
   writtenFilms: FilmUpdateManyWithoutWritersInput
   playedFilms: FilmUpdateManyWithoutActorsInput
+  comments: CommentUpdateManyInput
 }
 
 input PersonUpdateWithoutPlayedFilmsDataInput {
@@ -1098,6 +1464,7 @@ input PersonUpdateWithoutPlayedFilmsDataInput {
   lastName: String
   directedFilms: FilmUpdateManyWithoutDirectorsInput
   writtenFilms: FilmUpdateManyWithoutWritersInput
+  comments: CommentUpdateManyInput
 }
 
 input PersonUpdateWithoutWrittenFilmsDataInput {
@@ -1105,6 +1472,7 @@ input PersonUpdateWithoutWrittenFilmsDataInput {
   lastName: String
   directedFilms: FilmUpdateManyWithoutDirectorsInput
   playedFilms: FilmUpdateManyWithoutActorsInput
+  comments: CommentUpdateManyInput
 }
 
 input PersonUpdateWithWhereUniqueWithoutDirectedFilmsInput {
@@ -1278,6 +1646,9 @@ input PersonWhereInput {
   playedFilms_every: FilmWhereInput
   playedFilms_some: FilmWhereInput
   playedFilms_none: FilmWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
 }
 
 input PersonWhereUniqueInput {
@@ -1287,12 +1658,18 @@ input PersonWhereUniqueInput {
 type Query {
   films(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Film]!
   persons(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Person]!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   genres(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Genre]!
   film(where: FilmWhereUniqueInput!): Film
   person(where: PersonWhereUniqueInput!): Person
+  comment(where: CommentWhereUniqueInput!): Comment
+  user(where: UserWhereUniqueInput!): User
   genre(where: GenreWhereUniqueInput!): Genre
   filmsConnection(where: FilmWhereInput, orderBy: FilmOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FilmConnection!
   personsConnection(where: PersonWhereInput, orderBy: PersonOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PersonConnection!
+  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
+  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   genresConnection(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): GenreConnection!
 
   """Fetches an object given its ID"""
@@ -1305,7 +1682,216 @@ type Query {
 type Subscription {
   film(where: FilmSubscriptionWhereInput): FilmSubscriptionPayload
   person(where: PersonSubscriptionWhereInput): PersonSubscriptionPayload
+  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   genre(where: GenreSubscriptionWhereInput): GenreSubscriptionPayload
+}
+
+type User implements Node {
+  id: ID!
+  name: String!
+}
+
+"""A connection to a list of items."""
+type UserConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [UserEdge]!
+  aggregate: AggregateUser!
+}
+
+input UserCreateInput {
+  name: String!
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+}
+
+"""An edge in a connection."""
+type UserEdge {
+  """The item at the end of the edge."""
+  node: User!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type UserPreviousValues {
+  id: ID!
+  name: String!
+}
+
+type UserSubscriptionPayload {
+  mutation: MutationType!
+  node: User
+  updatedFields: [String!]
+  previousValues: UserPreviousValues
+}
+
+input UserSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: UserWhereInput
+}
+
+input UserUpdateDataInput {
+  name: String
+}
+
+input UserUpdateInput {
+  name: String
+}
+
+input UserUpdateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  delete: Boolean
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
+}
+
+input UserWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  _MagicalBackRelation_CommentToUser_every: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_some: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_none: CommentWhereInput
+}
+
+input UserWhereUniqueInput {
+  id: ID
 }
 `
 
@@ -1356,6 +1942,24 @@ export type PersonOrderByInput =   'id_ASC' |
   'createdAt_ASC' |
   'createdAt_DESC'
 
+export type CommentOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'text_ASC' |
+  'text_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
+export type UserOrderByInput =   'id_ASC' |
+  'id_DESC' |
+  'name_ASC' |
+  'name_DESC' |
+  'updatedAt_ASC' |
+  'updatedAt_DESC' |
+  'createdAt_ASC' |
+  'createdAt_DESC'
+
 export type MutationType =   'CREATED' |
   'UPDATED' |
   'DELETED'
@@ -1366,6 +1970,7 @@ export interface PersonCreateInput {
   directedFilms?: FilmCreateManyWithoutDirectorsInput
   writtenFilms?: FilmCreateManyWithoutWritersInput
   playedFilms?: FilmCreateManyWithoutActorsInput
+  comments?: CommentCreateManyInput
 }
 
 export interface FilmWhereInput {
@@ -1472,17 +2077,19 @@ export interface FilmWhereInput {
   actors_every?: PersonWhereInput
   actors_some?: PersonWhereInput
   actors_none?: PersonWhereInput
+  comments_every?: CommentWhereInput
+  comments_some?: CommentWhereInput
+  comments_none?: CommentWhereInput
 }
 
-export interface GenreUpdateWithWhereUniqueNestedInput {
-  where: GenreWhereUniqueInput
-  data: GenreUpdateDataInput
+export interface GenreUpdateDataInput {
+  genre?: String
 }
 
-export interface GenreWhereInput {
-  AND?: GenreWhereInput[] | GenreWhereInput
-  OR?: GenreWhereInput[] | GenreWhereInput
-  NOT?: GenreWhereInput[] | GenreWhereInput
+export interface CommentWhereInput {
+  AND?: CommentWhereInput[] | CommentWhereInput
+  OR?: CommentWhereInput[] | CommentWhereInput
+  NOT?: CommentWhereInput[] | CommentWhereInput
   id?: ID_Input
   id_not?: ID_Input
   id_in?: ID_Input[] | ID_Input
@@ -1497,225 +2104,31 @@ export interface GenreWhereInput {
   id_not_starts_with?: ID_Input
   id_ends_with?: ID_Input
   id_not_ends_with?: ID_Input
-  genre?: String
-  genre_not?: String
-  genre_in?: String[] | String
-  genre_not_in?: String[] | String
-  genre_lt?: String
-  genre_lte?: String
-  genre_gt?: String
-  genre_gte?: String
-  genre_contains?: String
-  genre_not_contains?: String
-  genre_starts_with?: String
-  genre_not_starts_with?: String
-  genre_ends_with?: String
-  genre_not_ends_with?: String
-  _MagicalBackRelation_FilmToGenre_every?: FilmWhereInput
-  _MagicalBackRelation_FilmToGenre_some?: FilmWhereInput
-  _MagicalBackRelation_FilmToGenre_none?: FilmWhereInput
+  text?: String
+  text_not?: String
+  text_in?: String[] | String
+  text_not_in?: String[] | String
+  text_lt?: String
+  text_lte?: String
+  text_gt?: String
+  text_gte?: String
+  text_contains?: String
+  text_not_contains?: String
+  text_starts_with?: String
+  text_not_starts_with?: String
+  text_ends_with?: String
+  text_not_ends_with?: String
+  user?: UserWhereInput
+  film?: FilmWhereInput
+  _MagicalBackRelation_CommentToPerson_every?: PersonWhereInput
+  _MagicalBackRelation_CommentToPerson_some?: PersonWhereInput
+  _MagicalBackRelation_CommentToPerson_none?: PersonWhereInput
 }
 
-export interface FilmCreateWithoutWritersInput {
-  title: String
-  year: DateTime
-  runtime: DateTime
-  plot: String
-  poster: String
-  rating: Float
-  votes: Int
-  genres?: GenreCreateManyInput
-  directors?: PersonCreateManyWithoutDirectedFilmsInput
-  actors?: PersonCreateManyWithoutPlayedFilmsInput
-}
-
-export interface FilmUpdateWithoutDirectorsDataInput {
-  title?: String
-  year?: DateTime
-  runtime?: DateTime
-  plot?: String
-  poster?: String
-  rating?: Float
-  votes?: Int
-  genres?: GenreUpdateManyInput
-  writers?: PersonUpdateManyWithoutWrittenFilmsInput
-  actors?: PersonUpdateManyWithoutPlayedFilmsInput
-}
-
-export interface PersonCreateManyWithoutPlayedFilmsInput {
-  create?: PersonCreateWithoutPlayedFilmsInput[] | PersonCreateWithoutPlayedFilmsInput
-  connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-}
-
-export interface GenreUpdateDataInput {
-  genre?: String
-}
-
-export interface PersonCreateWithoutPlayedFilmsInput {
-  firstName: String
-  lastName: String
-  directedFilms?: FilmCreateManyWithoutDirectorsInput
-  writtenFilms?: FilmCreateManyWithoutWritersInput
-}
-
-export interface GenreSubscriptionWhereInput {
-  AND?: GenreSubscriptionWhereInput[] | GenreSubscriptionWhereInput
-  OR?: GenreSubscriptionWhereInput[] | GenreSubscriptionWhereInput
-  NOT?: GenreSubscriptionWhereInput[] | GenreSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: GenreWhereInput
-}
-
-export interface FilmCreateManyWithoutDirectorsInput {
-  create?: FilmCreateWithoutDirectorsInput[] | FilmCreateWithoutDirectorsInput
-  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-}
-
-export interface FilmSubscriptionWhereInput {
-  AND?: FilmSubscriptionWhereInput[] | FilmSubscriptionWhereInput
-  OR?: FilmSubscriptionWhereInput[] | FilmSubscriptionWhereInput
-  NOT?: FilmSubscriptionWhereInput[] | FilmSubscriptionWhereInput
-  mutation_in?: MutationType[] | MutationType
-  updatedFields_contains?: String
-  updatedFields_contains_every?: String[] | String
-  updatedFields_contains_some?: String[] | String
-  node?: FilmWhereInput
-}
-
-export interface FilmCreateWithoutDirectorsInput {
-  title: String
-  year: DateTime
-  runtime: DateTime
-  plot: String
-  poster: String
-  rating: Float
-  votes: Int
-  genres?: GenreCreateManyInput
-  writers?: PersonCreateManyWithoutWrittenFilmsInput
-  actors?: PersonCreateManyWithoutPlayedFilmsInput
-}
-
-export interface FilmWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface PersonCreateManyWithoutWrittenFilmsInput {
-  create?: PersonCreateWithoutWrittenFilmsInput[] | PersonCreateWithoutWrittenFilmsInput
-  connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-}
-
-export interface GenreWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface PersonCreateWithoutWrittenFilmsInput {
-  firstName: String
-  lastName: String
-  directedFilms?: FilmCreateManyWithoutDirectorsInput
-  playedFilms?: FilmCreateManyWithoutActorsInput
-}
-
-export interface PersonUpsertWithWhereUniqueWithoutDirectedFilmsInput {
-  where: PersonWhereUniqueInput
-  update: PersonUpdateWithoutDirectedFilmsDataInput
-  create: PersonCreateWithoutDirectedFilmsInput
-}
-
-export interface FilmCreateManyWithoutActorsInput {
-  create?: FilmCreateWithoutActorsInput[] | FilmCreateWithoutActorsInput
-  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-}
-
-export interface PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput {
-  where: PersonWhereUniqueInput
-  update: PersonUpdateWithoutPlayedFilmsDataInput
-  create: PersonCreateWithoutPlayedFilmsInput
-}
-
-export interface FilmCreateWithoutActorsInput {
-  title: String
-  year: DateTime
-  runtime: DateTime
-  plot: String
-  poster: String
-  rating: Float
-  votes: Int
-  genres?: GenreCreateManyInput
-  directors?: PersonCreateManyWithoutDirectedFilmsInput
-  writers?: PersonCreateManyWithoutWrittenFilmsInput
-}
-
-export interface PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput {
-  where: PersonWhereUniqueInput
-  update: PersonUpdateWithoutWrittenFilmsDataInput
-  create: PersonCreateWithoutWrittenFilmsInput
-}
-
-export interface PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput {
-  where: PersonWhereUniqueInput
-  data: PersonUpdateWithoutWrittenFilmsDataInput
-}
-
-export interface FilmUpdateWithoutActorsDataInput {
-  title?: String
-  year?: DateTime
-  runtime?: DateTime
-  plot?: String
-  poster?: String
-  rating?: Float
-  votes?: Int
-  genres?: GenreUpdateManyInput
-  directors?: PersonUpdateManyWithoutDirectedFilmsInput
-  writers?: PersonUpdateManyWithoutWrittenFilmsInput
-}
-
-export interface FilmUpdateInput {
-  title?: String
-  year?: DateTime
-  runtime?: DateTime
-  plot?: String
-  poster?: String
-  rating?: Float
-  votes?: Int
-  genres?: GenreUpdateManyInput
-  directors?: PersonUpdateManyWithoutDirectedFilmsInput
-  writers?: PersonUpdateManyWithoutWrittenFilmsInput
-  actors?: PersonUpdateManyWithoutPlayedFilmsInput
-}
-
-export interface FilmUpdateManyWithoutActorsInput {
-  create?: FilmCreateWithoutActorsInput[] | FilmCreateWithoutActorsInput
-  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  disconnect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  delete?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  update?: FilmUpdateWithWhereUniqueWithoutActorsInput[] | FilmUpdateWithWhereUniqueWithoutActorsInput
-  upsert?: FilmUpsertWithWhereUniqueWithoutActorsInput[] | FilmUpsertWithWhereUniqueWithoutActorsInput
-}
-
-export interface GenreUpdateManyInput {
-  create?: GenreCreateInput[] | GenreCreateInput
-  connect?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
-  disconnect?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
-  delete?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
-  update?: GenreUpdateWithWhereUniqueNestedInput[] | GenreUpdateWithWhereUniqueNestedInput
-  upsert?: GenreUpsertWithWhereUniqueNestedInput[] | GenreUpsertWithWhereUniqueNestedInput
-}
-
-export interface FilmCreateInput {
-  title: String
-  year: DateTime
-  runtime: DateTime
-  plot: String
-  poster: String
-  rating: Float
-  votes: Int
-  genres?: GenreCreateManyInput
-  directors?: PersonCreateManyWithoutDirectedFilmsInput
-  writers?: PersonCreateManyWithoutWrittenFilmsInput
-  actors?: PersonCreateManyWithoutPlayedFilmsInput
+export interface GenreUpsertWithWhereUniqueNestedInput {
+  where: GenreWhereUniqueInput
+  update: GenreUpdateDataInput
+  create: GenreCreateInput
 }
 
 export interface PersonWhereInput {
@@ -1773,36 +2186,33 @@ export interface PersonWhereInput {
   playedFilms_every?: FilmWhereInput
   playedFilms_some?: FilmWhereInput
   playedFilms_none?: FilmWhereInput
+  comments_every?: CommentWhereInput
+  comments_some?: CommentWhereInput
+  comments_none?: CommentWhereInput
 }
 
-export interface GenreCreateInput {
-  genre: String
+export interface FilmCreateWithoutDirectorsInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres?: GenreCreateManyInput
+  writers?: PersonCreateManyWithoutWrittenFilmsInput
+  actors?: PersonCreateManyWithoutPlayedFilmsInput
+  comments?: CommentCreateManyWithoutFilmInput
 }
 
-export interface PersonUpdateManyWithoutWrittenFilmsInput {
+export interface CommentUpdateWithoutFilmDataInput {
+  text?: String
+  user?: UserUpdateOneInput
+}
+
+export interface PersonCreateManyWithoutWrittenFilmsInput {
   create?: PersonCreateWithoutWrittenFilmsInput[] | PersonCreateWithoutWrittenFilmsInput
   connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-  disconnect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-  delete?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-  update?: PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput[] | PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput
-  upsert?: PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput[] | PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput
-}
-
-export interface PersonCreateWithoutDirectedFilmsInput {
-  firstName: String
-  lastName: String
-  writtenFilms?: FilmCreateManyWithoutWritersInput
-  playedFilms?: FilmCreateManyWithoutActorsInput
-}
-
-export interface GenreUpsertWithWhereUniqueNestedInput {
-  where: GenreWhereUniqueInput
-  update: GenreUpdateDataInput
-  create: GenreCreateInput
-}
-
-export interface GenreUpdateInput {
-  genre?: String
 }
 
 export interface PersonUpdateManyWithoutDirectedFilmsInput {
@@ -1814,130 +2224,28 @@ export interface PersonUpdateManyWithoutDirectedFilmsInput {
   upsert?: PersonUpsertWithWhereUniqueWithoutDirectedFilmsInput[] | PersonUpsertWithWhereUniqueWithoutDirectedFilmsInput
 }
 
-export interface PersonUpdateInput {
-  firstName?: String
-  lastName?: String
-  directedFilms?: FilmUpdateManyWithoutDirectorsInput
-  writtenFilms?: FilmUpdateManyWithoutWritersInput
-  playedFilms?: FilmUpdateManyWithoutActorsInput
+export interface PersonCreateWithoutWrittenFilmsInput {
+  firstName: String
+  lastName: String
+  directedFilms?: FilmCreateManyWithoutDirectorsInput
+  playedFilms?: FilmCreateManyWithoutActorsInput
+  comments?: CommentCreateManyInput
 }
 
-export interface PersonUpdateWithWhereUniqueWithoutDirectedFilmsInput {
-  where: PersonWhereUniqueInput
-  data: PersonUpdateWithoutDirectedFilmsDataInput
+export interface UserSubscriptionWhereInput {
+  AND?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  OR?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  NOT?: UserSubscriptionWhereInput[] | UserSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: UserWhereInput
 }
 
-export interface FilmUpsertWithWhereUniqueWithoutDirectorsInput {
-  where: FilmWhereUniqueInput
-  update: FilmUpdateWithoutDirectorsDataInput
-  create: FilmCreateWithoutDirectorsInput
-}
-
-export interface PersonUpdateWithoutDirectedFilmsDataInput {
-  firstName?: String
-  lastName?: String
-  writtenFilms?: FilmUpdateManyWithoutWritersInput
-  playedFilms?: FilmUpdateManyWithoutActorsInput
-}
-
-export interface FilmUpdateWithWhereUniqueWithoutActorsInput {
-  where: FilmWhereUniqueInput
-  data: FilmUpdateWithoutActorsDataInput
-}
-
-export interface FilmUpdateManyWithoutWritersInput {
-  create?: FilmCreateWithoutWritersInput[] | FilmCreateWithoutWritersInput
+export interface FilmCreateManyWithoutActorsInput {
+  create?: FilmCreateWithoutActorsInput[] | FilmCreateWithoutActorsInput
   connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  disconnect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  delete?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  update?: FilmUpdateWithWhereUniqueWithoutWritersInput[] | FilmUpdateWithWhereUniqueWithoutWritersInput
-  upsert?: FilmUpsertWithWhereUniqueWithoutWritersInput[] | FilmUpsertWithWhereUniqueWithoutWritersInput
-}
-
-export interface GenreCreateManyInput {
-  create?: GenreCreateInput[] | GenreCreateInput
-  connect?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
-}
-
-export interface FilmUpdateWithWhereUniqueWithoutWritersInput {
-  where: FilmWhereUniqueInput
-  data: FilmUpdateWithoutWritersDataInput
-}
-
-export interface FilmCreateManyWithoutWritersInput {
-  create?: FilmCreateWithoutWritersInput[] | FilmCreateWithoutWritersInput
-  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-}
-
-export interface FilmUpdateWithoutWritersDataInput {
-  title?: String
-  year?: DateTime
-  runtime?: DateTime
-  plot?: String
-  poster?: String
-  rating?: Float
-  votes?: Int
-  genres?: GenreUpdateManyInput
-  directors?: PersonUpdateManyWithoutDirectedFilmsInput
-  actors?: PersonUpdateManyWithoutPlayedFilmsInput
-}
-
-export interface PersonWhereUniqueInput {
-  id?: ID_Input
-}
-
-export interface PersonUpdateManyWithoutPlayedFilmsInput {
-  create?: PersonCreateWithoutPlayedFilmsInput[] | PersonCreateWithoutPlayedFilmsInput
-  connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-  disconnect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-  delete?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
-  update?: PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput[] | PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput
-  upsert?: PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput[] | PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput
-}
-
-export interface FilmUpsertWithWhereUniqueWithoutActorsInput {
-  where: FilmWhereUniqueInput
-  update: FilmUpdateWithoutActorsDataInput
-  create: FilmCreateWithoutActorsInput
-}
-
-export interface FilmUpdateWithWhereUniqueWithoutDirectorsInput {
-  where: FilmWhereUniqueInput
-  data: FilmUpdateWithoutDirectorsDataInput
-}
-
-export interface FilmUpdateManyWithoutDirectorsInput {
-  create?: FilmCreateWithoutDirectorsInput[] | FilmCreateWithoutDirectorsInput
-  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  disconnect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  delete?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
-  update?: FilmUpdateWithWhereUniqueWithoutDirectorsInput[] | FilmUpdateWithWhereUniqueWithoutDirectorsInput
-  upsert?: FilmUpsertWithWhereUniqueWithoutDirectorsInput[] | FilmUpsertWithWhereUniqueWithoutDirectorsInput
-}
-
-export interface PersonUpdateWithoutPlayedFilmsDataInput {
-  firstName?: String
-  lastName?: String
-  directedFilms?: FilmUpdateManyWithoutDirectorsInput
-  writtenFilms?: FilmUpdateManyWithoutWritersInput
-}
-
-export interface PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput {
-  where: PersonWhereUniqueInput
-  data: PersonUpdateWithoutPlayedFilmsDataInput
-}
-
-export interface PersonUpdateWithoutWrittenFilmsDataInput {
-  firstName?: String
-  lastName?: String
-  directedFilms?: FilmUpdateManyWithoutDirectorsInput
-  playedFilms?: FilmUpdateManyWithoutActorsInput
-}
-
-export interface FilmUpsertWithWhereUniqueWithoutWritersInput {
-  where: FilmWhereUniqueInput
-  update: FilmUpdateWithoutWritersDataInput
-  create: FilmCreateWithoutWritersInput
 }
 
 export interface PersonSubscriptionWhereInput {
@@ -1951,9 +2259,587 @@ export interface PersonSubscriptionWhereInput {
   node?: PersonWhereInput
 }
 
+export interface FilmCreateWithoutActorsInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres?: GenreCreateManyInput
+  directors?: PersonCreateManyWithoutDirectedFilmsInput
+  writers?: PersonCreateManyWithoutWrittenFilmsInput
+  comments?: CommentCreateManyWithoutFilmInput
+}
+
+export interface GenreUpdateInput {
+  genre?: String
+}
+
+export interface CommentCreateManyWithoutFilmInput {
+  create?: CommentCreateWithoutFilmInput[] | CommentCreateWithoutFilmInput
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+}
+
+export interface FilmWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface CommentCreateWithoutFilmInput {
+  text: String
+  user: UserCreateOneInput
+}
+
+export interface CommentWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserCreateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+}
+
+export interface GenreWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface UserCreateInput {
+  name: String
+}
+
+export interface PersonUpdateInput {
+  firstName?: String
+  lastName?: String
+  directedFilms?: FilmUpdateManyWithoutDirectorsInput
+  writtenFilms?: FilmUpdateManyWithoutWritersInput
+  playedFilms?: FilmUpdateManyWithoutActorsInput
+  comments?: CommentUpdateManyInput
+}
+
+export interface CommentCreateManyInput {
+  create?: CommentCreateInput[] | CommentCreateInput
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+}
+
+export interface FilmUpsertWithWhereUniqueWithoutWritersInput {
+  where: FilmWhereUniqueInput
+  update: FilmUpdateWithoutWritersDataInput
+  create: FilmCreateWithoutWritersInput
+}
+
+export interface CommentCreateInput {
+  text: String
+  user: UserCreateOneInput
+  film: FilmCreateOneWithoutCommentsInput
+}
+
+export interface FilmUpsertWithWhereUniqueWithoutDirectorsInput {
+  where: FilmWhereUniqueInput
+  update: FilmUpdateWithoutDirectorsDataInput
+  create: FilmCreateWithoutDirectorsInput
+}
+
+export interface FilmCreateOneWithoutCommentsInput {
+  create?: FilmCreateWithoutCommentsInput
+  connect?: FilmWhereUniqueInput
+}
+
+export interface CommentUpsertWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput
+  update: CommentUpdateDataInput
+  create: CommentCreateInput
+}
+
+export interface FilmCreateWithoutCommentsInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres?: GenreCreateManyInput
+  directors?: PersonCreateManyWithoutDirectedFilmsInput
+  writers?: PersonCreateManyWithoutWrittenFilmsInput
+  actors?: PersonCreateManyWithoutPlayedFilmsInput
+}
+
+export interface FilmUpdateWithoutCommentsDataInput {
+  title?: String
+  year?: DateTime
+  runtime?: DateTime
+  plot?: String
+  poster?: String
+  rating?: Float
+  votes?: Int
+  genres?: GenreUpdateManyInput
+  directors?: PersonUpdateManyWithoutDirectedFilmsInput
+  writers?: PersonUpdateManyWithoutWrittenFilmsInput
+  actors?: PersonUpdateManyWithoutPlayedFilmsInput
+}
+
+export interface UserUpdateDataInput {
+  name?: String
+}
+
+export interface CommentUpdateDataInput {
+  text?: String
+  user?: UserUpdateOneInput
+  film?: FilmUpdateOneWithoutCommentsInput
+}
+
+export interface FilmUpdateInput {
+  title?: String
+  year?: DateTime
+  runtime?: DateTime
+  plot?: String
+  poster?: String
+  rating?: Float
+  votes?: Int
+  genres?: GenreUpdateManyInput
+  directors?: PersonUpdateManyWithoutDirectedFilmsInput
+  writers?: PersonUpdateManyWithoutWrittenFilmsInput
+  actors?: PersonUpdateManyWithoutPlayedFilmsInput
+  comments?: CommentUpdateManyWithoutFilmInput
+}
+
+export interface CommentUpdateManyInput {
+  create?: CommentCreateInput[] | CommentCreateInput
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  disconnect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  delete?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  update?: CommentUpdateWithWhereUniqueNestedInput[] | CommentUpdateWithWhereUniqueNestedInput
+  upsert?: CommentUpsertWithWhereUniqueNestedInput[] | CommentUpsertWithWhereUniqueNestedInput
+}
+
+export interface GenreUpdateManyInput {
+  create?: GenreCreateInput[] | GenreCreateInput
+  connect?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
+  disconnect?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
+  delete?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
+  update?: GenreUpdateWithWhereUniqueNestedInput[] | GenreUpdateWithWhereUniqueNestedInput
+  upsert?: GenreUpsertWithWhereUniqueNestedInput[] | GenreUpsertWithWhereUniqueNestedInput
+}
+
+export interface CommentUpsertWithWhereUniqueWithoutFilmInput {
+  where: CommentWhereUniqueInput
+  update: CommentUpdateWithoutFilmDataInput
+  create: CommentCreateWithoutFilmInput
+}
+
+export interface GenreUpdateWithWhereUniqueNestedInput {
+  where: GenreWhereUniqueInput
+  data: GenreUpdateDataInput
+}
+
+export interface FilmCreateInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres?: GenreCreateManyInput
+  directors?: PersonCreateManyWithoutDirectedFilmsInput
+  writers?: PersonCreateManyWithoutWrittenFilmsInput
+  actors?: PersonCreateManyWithoutPlayedFilmsInput
+  comments?: CommentCreateManyWithoutFilmInput
+}
+
+export interface UserWhereInput {
+  AND?: UserWhereInput[] | UserWhereInput
+  OR?: UserWhereInput[] | UserWhereInput
+  NOT?: UserWhereInput[] | UserWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  name?: String
+  name_not?: String
+  name_in?: String[] | String
+  name_not_in?: String[] | String
+  name_lt?: String
+  name_lte?: String
+  name_gt?: String
+  name_gte?: String
+  name_contains?: String
+  name_not_contains?: String
+  name_starts_with?: String
+  name_not_starts_with?: String
+  name_ends_with?: String
+  name_not_ends_with?: String
+  _MagicalBackRelation_CommentToUser_every?: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_some?: CommentWhereInput
+  _MagicalBackRelation_CommentToUser_none?: CommentWhereInput
+}
+
+export interface GenreCreateInput {
+  genre: String
+}
+
+export interface UserUpdateOneInput {
+  create?: UserCreateInput
+  connect?: UserWhereUniqueInput
+  delete?: Boolean
+  update?: UserUpdateDataInput
+  upsert?: UserUpsertNestedInput
+}
+
+export interface PersonCreateWithoutDirectedFilmsInput {
+  firstName: String
+  lastName: String
+  writtenFilms?: FilmCreateManyWithoutWritersInput
+  playedFilms?: FilmCreateManyWithoutActorsInput
+  comments?: CommentCreateManyInput
+}
+
+export interface GenreWhereInput {
+  AND?: GenreWhereInput[] | GenreWhereInput
+  OR?: GenreWhereInput[] | GenreWhereInput
+  NOT?: GenreWhereInput[] | GenreWhereInput
+  id?: ID_Input
+  id_not?: ID_Input
+  id_in?: ID_Input[] | ID_Input
+  id_not_in?: ID_Input[] | ID_Input
+  id_lt?: ID_Input
+  id_lte?: ID_Input
+  id_gt?: ID_Input
+  id_gte?: ID_Input
+  id_contains?: ID_Input
+  id_not_contains?: ID_Input
+  id_starts_with?: ID_Input
+  id_not_starts_with?: ID_Input
+  id_ends_with?: ID_Input
+  id_not_ends_with?: ID_Input
+  genre?: String
+  genre_not?: String
+  genre_in?: String[] | String
+  genre_not_in?: String[] | String
+  genre_lt?: String
+  genre_lte?: String
+  genre_gt?: String
+  genre_gte?: String
+  genre_contains?: String
+  genre_not_contains?: String
+  genre_starts_with?: String
+  genre_not_starts_with?: String
+  genre_ends_with?: String
+  genre_not_ends_with?: String
+  _MagicalBackRelation_FilmToGenre_every?: FilmWhereInput
+  _MagicalBackRelation_FilmToGenre_some?: FilmWhereInput
+  _MagicalBackRelation_FilmToGenre_none?: FilmWhereInput
+}
+
+export interface FilmCreateWithoutWritersInput {
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+  genres?: GenreCreateManyInput
+  directors?: PersonCreateManyWithoutDirectedFilmsInput
+  actors?: PersonCreateManyWithoutPlayedFilmsInput
+  comments?: CommentCreateManyWithoutFilmInput
+}
+
+export interface PersonUpdateWithWhereUniqueWithoutDirectedFilmsInput {
+  where: PersonWhereUniqueInput
+  data: PersonUpdateWithoutDirectedFilmsDataInput
+}
+
+export interface PersonCreateWithoutPlayedFilmsInput {
+  firstName: String
+  lastName: String
+  directedFilms?: FilmCreateManyWithoutDirectorsInput
+  writtenFilms?: FilmCreateManyWithoutWritersInput
+  comments?: CommentCreateManyInput
+}
+
+export interface PersonUpdateWithoutDirectedFilmsDataInput {
+  firstName?: String
+  lastName?: String
+  writtenFilms?: FilmUpdateManyWithoutWritersInput
+  playedFilms?: FilmUpdateManyWithoutActorsInput
+  comments?: CommentUpdateManyInput
+}
+
+export interface GenreSubscriptionWhereInput {
+  AND?: GenreSubscriptionWhereInput[] | GenreSubscriptionWhereInput
+  OR?: GenreSubscriptionWhereInput[] | GenreSubscriptionWhereInput
+  NOT?: GenreSubscriptionWhereInput[] | GenreSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: GenreWhereInput
+}
+
+export interface FilmUpdateManyWithoutWritersInput {
+  create?: FilmCreateWithoutWritersInput[] | FilmCreateWithoutWritersInput
+  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  disconnect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  delete?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  update?: FilmUpdateWithWhereUniqueWithoutWritersInput[] | FilmUpdateWithWhereUniqueWithoutWritersInput
+  upsert?: FilmUpsertWithWhereUniqueWithoutWritersInput[] | FilmUpsertWithWhereUniqueWithoutWritersInput
+}
+
+export interface FilmSubscriptionWhereInput {
+  AND?: FilmSubscriptionWhereInput[] | FilmSubscriptionWhereInput
+  OR?: FilmSubscriptionWhereInput[] | FilmSubscriptionWhereInput
+  NOT?: FilmSubscriptionWhereInput[] | FilmSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: FilmWhereInput
+}
+
+export interface FilmUpdateWithWhereUniqueWithoutWritersInput {
+  where: FilmWhereUniqueInput
+  data: FilmUpdateWithoutWritersDataInput
+}
+
+export interface PersonWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface FilmUpdateWithoutWritersDataInput {
+  title?: String
+  year?: DateTime
+  runtime?: DateTime
+  plot?: String
+  poster?: String
+  rating?: Float
+  votes?: Int
+  genres?: GenreUpdateManyInput
+  directors?: PersonUpdateManyWithoutDirectedFilmsInput
+  actors?: PersonUpdateManyWithoutPlayedFilmsInput
+  comments?: CommentUpdateManyWithoutFilmInput
+}
+
+export interface CommentUpdateInput {
+  text?: String
+  user?: UserUpdateOneInput
+  film?: FilmUpdateOneWithoutCommentsInput
+}
+
+export interface PersonUpdateManyWithoutPlayedFilmsInput {
+  create?: PersonCreateWithoutPlayedFilmsInput[] | PersonCreateWithoutPlayedFilmsInput
+  connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+  disconnect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+  delete?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+  update?: PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput[] | PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput
+  upsert?: PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput[] | PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput
+}
+
+export interface PersonUpsertWithWhereUniqueWithoutPlayedFilmsInput {
+  where: PersonWhereUniqueInput
+  update: PersonUpdateWithoutPlayedFilmsDataInput
+  create: PersonCreateWithoutPlayedFilmsInput
+}
+
+export interface PersonUpdateWithWhereUniqueWithoutPlayedFilmsInput {
+  where: PersonWhereUniqueInput
+  data: PersonUpdateWithoutPlayedFilmsDataInput
+}
+
+export interface FilmUpsertWithoutCommentsInput {
+  update: FilmUpdateWithoutCommentsDataInput
+  create: FilmCreateWithoutCommentsInput
+}
+
+export interface PersonUpdateWithoutPlayedFilmsDataInput {
+  firstName?: String
+  lastName?: String
+  directedFilms?: FilmUpdateManyWithoutDirectorsInput
+  writtenFilms?: FilmUpdateManyWithoutWritersInput
+  comments?: CommentUpdateManyInput
+}
+
+export interface CommentUpdateWithWhereUniqueNestedInput {
+  where: CommentWhereUniqueInput
+  data: CommentUpdateDataInput
+}
+
+export interface FilmUpdateManyWithoutDirectorsInput {
+  create?: FilmCreateWithoutDirectorsInput[] | FilmCreateWithoutDirectorsInput
+  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  disconnect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  delete?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  update?: FilmUpdateWithWhereUniqueWithoutDirectorsInput[] | FilmUpdateWithWhereUniqueWithoutDirectorsInput
+  upsert?: FilmUpsertWithWhereUniqueWithoutDirectorsInput[] | FilmUpsertWithWhereUniqueWithoutDirectorsInput
+}
+
+export interface UserUpsertNestedInput {
+  update: UserUpdateDataInput
+  create: UserCreateInput
+}
+
+export interface FilmUpdateWithWhereUniqueWithoutDirectorsInput {
+  where: FilmWhereUniqueInput
+  data: FilmUpdateWithoutDirectorsDataInput
+}
+
 export interface PersonCreateManyWithoutDirectedFilmsInput {
   create?: PersonCreateWithoutDirectedFilmsInput[] | PersonCreateWithoutDirectedFilmsInput
   connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+}
+
+export interface FilmUpdateWithoutDirectorsDataInput {
+  title?: String
+  year?: DateTime
+  runtime?: DateTime
+  plot?: String
+  poster?: String
+  rating?: Float
+  votes?: Int
+  genres?: GenreUpdateManyInput
+  writers?: PersonUpdateManyWithoutWrittenFilmsInput
+  actors?: PersonUpdateManyWithoutPlayedFilmsInput
+  comments?: CommentUpdateManyWithoutFilmInput
+}
+
+export interface PersonCreateManyWithoutPlayedFilmsInput {
+  create?: PersonCreateWithoutPlayedFilmsInput[] | PersonCreateWithoutPlayedFilmsInput
+  connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+}
+
+export interface PersonUpdateManyWithoutWrittenFilmsInput {
+  create?: PersonCreateWithoutWrittenFilmsInput[] | PersonCreateWithoutWrittenFilmsInput
+  connect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+  disconnect?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+  delete?: PersonWhereUniqueInput[] | PersonWhereUniqueInput
+  update?: PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput[] | PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput
+  upsert?: PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput[] | PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput
+}
+
+export interface CommentSubscriptionWhereInput {
+  AND?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  OR?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  NOT?: CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput
+  mutation_in?: MutationType[] | MutationType
+  updatedFields_contains?: String
+  updatedFields_contains_every?: String[] | String
+  updatedFields_contains_some?: String[] | String
+  node?: CommentWhereInput
+}
+
+export interface PersonUpdateWithWhereUniqueWithoutWrittenFilmsInput {
+  where: PersonWhereUniqueInput
+  data: PersonUpdateWithoutWrittenFilmsDataInput
+}
+
+export interface UserWhereUniqueInput {
+  id?: ID_Input
+}
+
+export interface PersonUpdateWithoutWrittenFilmsDataInput {
+  firstName?: String
+  lastName?: String
+  directedFilms?: FilmUpdateManyWithoutDirectorsInput
+  playedFilms?: FilmUpdateManyWithoutActorsInput
+  comments?: CommentUpdateManyInput
+}
+
+export interface PersonUpsertWithWhereUniqueWithoutWrittenFilmsInput {
+  where: PersonWhereUniqueInput
+  update: PersonUpdateWithoutWrittenFilmsDataInput
+  create: PersonCreateWithoutWrittenFilmsInput
+}
+
+export interface FilmUpdateManyWithoutActorsInput {
+  create?: FilmCreateWithoutActorsInput[] | FilmCreateWithoutActorsInput
+  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  disconnect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  delete?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+  update?: FilmUpdateWithWhereUniqueWithoutActorsInput[] | FilmUpdateWithWhereUniqueWithoutActorsInput
+  upsert?: FilmUpsertWithWhereUniqueWithoutActorsInput[] | FilmUpsertWithWhereUniqueWithoutActorsInput
+}
+
+export interface FilmUpsertWithWhereUniqueWithoutActorsInput {
+  where: FilmWhereUniqueInput
+  update: FilmUpdateWithoutActorsDataInput
+  create: FilmCreateWithoutActorsInput
+}
+
+export interface FilmCreateManyWithoutWritersInput {
+  create?: FilmCreateWithoutWritersInput[] | FilmCreateWithoutWritersInput
+  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+}
+
+export interface CommentUpdateWithWhereUniqueWithoutFilmInput {
+  where: CommentWhereUniqueInput
+  data: CommentUpdateWithoutFilmDataInput
+}
+
+export interface CommentUpdateManyWithoutFilmInput {
+  create?: CommentCreateWithoutFilmInput[] | CommentCreateWithoutFilmInput
+  connect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  disconnect?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  delete?: CommentWhereUniqueInput[] | CommentWhereUniqueInput
+  update?: CommentUpdateWithWhereUniqueWithoutFilmInput[] | CommentUpdateWithWhereUniqueWithoutFilmInput
+  upsert?: CommentUpsertWithWhereUniqueWithoutFilmInput[] | CommentUpsertWithWhereUniqueWithoutFilmInput
+}
+
+export interface FilmUpdateWithoutActorsDataInput {
+  title?: String
+  year?: DateTime
+  runtime?: DateTime
+  plot?: String
+  poster?: String
+  rating?: Float
+  votes?: Int
+  genres?: GenreUpdateManyInput
+  directors?: PersonUpdateManyWithoutDirectedFilmsInput
+  writers?: PersonUpdateManyWithoutWrittenFilmsInput
+  comments?: CommentUpdateManyWithoutFilmInput
+}
+
+export interface FilmUpdateWithWhereUniqueWithoutActorsInput {
+  where: FilmWhereUniqueInput
+  data: FilmUpdateWithoutActorsDataInput
+}
+
+export interface FilmCreateManyWithoutDirectorsInput {
+  create?: FilmCreateWithoutDirectorsInput[] | FilmCreateWithoutDirectorsInput
+  connect?: FilmWhereUniqueInput[] | FilmWhereUniqueInput
+}
+
+export interface GenreCreateManyInput {
+  create?: GenreCreateInput[] | GenreCreateInput
+  connect?: GenreWhereUniqueInput[] | GenreWhereUniqueInput
+}
+
+export interface FilmUpdateOneWithoutCommentsInput {
+  create?: FilmCreateWithoutCommentsInput
+  connect?: FilmWhereUniqueInput
+  delete?: Boolean
+  update?: FilmUpdateWithoutCommentsDataInput
+  upsert?: FilmUpsertWithoutCommentsInput
+}
+
+export interface PersonUpsertWithWhereUniqueWithoutDirectedFilmsInput {
+  where: PersonWhereUniqueInput
+  update: PersonUpdateWithoutDirectedFilmsDataInput
+  create: PersonCreateWithoutDirectedFilmsInput
+}
+
+export interface UserUpdateInput {
+  name?: String
 }
 
 /*
@@ -1969,15 +2855,6 @@ export interface GenrePreviousValues {
   genre: String
 }
 
-export interface Person extends Node {
-  id: ID_Output
-  firstName: String
-  lastName: String
-  directedFilms?: Film[]
-  writtenFilms?: Film[]
-  playedFilms?: Film[]
-}
-
 export interface Film extends Node {
   id: ID_Output
   title: String
@@ -1991,41 +2868,20 @@ export interface Film extends Node {
   directors?: Person[]
   writers?: Person[]
   actors?: Person[]
+  comments?: Comment[]
 }
 
-export interface BatchPayload {
-  count: Long
+export interface User extends Node {
+  id: ID_Output
+  name: String
 }
 
 export interface AggregateGenre {
   count: Int
 }
 
-/*
- * A connection to a list of items.
-
- */
-export interface FilmConnection {
-  pageInfo: PageInfo
-  edges: FilmEdge[]
-  aggregate: AggregateFilm
-}
-
-export interface FilmPreviousValues {
-  id: ID_Output
-  title: String
-  year: DateTime
-  runtime: DateTime
-  plot: String
-  poster: String
-  rating: Float
-  votes: Int
-}
-
-export interface PersonPreviousValues {
-  id: ID_Output
-  firstName: String
-  lastName: String
+export interface BatchPayload {
+  count: Long
 }
 
 /*
@@ -2047,6 +2903,59 @@ export interface GenreEdge {
   cursor: String
 }
 
+export interface CommentPreviousValues {
+  id: ID_Output
+  text: String
+}
+
+export interface AggregateUser {
+  count: Int
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface UserEdge {
+  node: User
+  cursor: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface UserConnection {
+  pageInfo: PageInfo
+  edges: UserEdge[]
+  aggregate: AggregateUser
+}
+
+/*
+ * An edge in a connection.
+
+ */
+export interface CommentEdge {
+  node: Comment
+  cursor: String
+}
+
+export interface Comment extends Node {
+  id: ID_Output
+  user: User
+  film: Film
+  text: String
+}
+
+export interface AggregatePerson {
+  count: Int
+}
+
+export interface UserPreviousValues {
+  id: ID_Output
+  name: String
+}
+
 /*
  * A connection to a list of items.
 
@@ -2055,6 +2964,13 @@ export interface PersonConnection {
   pageInfo: PageInfo
   edges: PersonEdge[]
   aggregate: AggregatePerson
+}
+
+export interface FilmSubscriptionPayload {
+  mutation: MutationType
+  node?: Film
+  updatedFields?: String[]
+  previousValues?: FilmPreviousValues
 }
 
 /*
@@ -2066,16 +2982,71 @@ export interface FilmEdge {
   cursor: String
 }
 
-export interface FilmSubscriptionPayload {
+export interface FilmPreviousValues {
+  id: ID_Output
+  title: String
+  year: DateTime
+  runtime: DateTime
+  plot: String
+  poster: String
+  rating: Float
+  votes: Int
+}
+
+/*
+ * Information about pagination in a connection.
+
+ */
+export interface PageInfo {
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+  startCursor?: String
+  endCursor?: String
+}
+
+export interface UserSubscriptionPayload {
   mutation: MutationType
-  node?: Film
+  node?: User
   updatedFields?: String[]
-  previousValues?: FilmPreviousValues
+  previousValues?: UserPreviousValues
 }
 
 export interface Genre extends Node {
   id: ID_Output
   genre: String
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface CommentConnection {
+  pageInfo: PageInfo
+  edges: CommentEdge[]
+  aggregate: AggregateComment
+}
+
+export interface CommentSubscriptionPayload {
+  mutation: MutationType
+  node?: Comment
+  updatedFields?: String[]
+  previousValues?: CommentPreviousValues
+}
+
+export interface Person extends Node {
+  id: ID_Output
+  firstName: String
+  lastName: String
+  directedFilms?: Film[]
+  writtenFilms?: Film[]
+  playedFilms?: Film[]
+  comments?: Comment[]
+}
+
+export interface PersonPreviousValues {
+  id: ID_Output
+  firstName: String
+  lastName: String
 }
 
 export interface PersonSubscriptionPayload {
@@ -2085,8 +3056,27 @@ export interface PersonSubscriptionPayload {
   previousValues?: PersonPreviousValues
 }
 
-export interface AggregatePerson {
+/*
+ * An edge in a connection.
+
+ */
+export interface PersonEdge {
+  node: Person
+  cursor: String
+}
+
+export interface AggregateComment {
   count: Int
+}
+
+/*
+ * A connection to a list of items.
+
+ */
+export interface FilmConnection {
+  pageInfo: PageInfo
+  edges: FilmEdge[]
+  aggregate: AggregateFilm
 }
 
 export interface GenreSubscriptionPayload {
@@ -2101,35 +3091,12 @@ export interface AggregateFilm {
 }
 
 /*
- * An edge in a connection.
-
- */
-export interface PersonEdge {
-  node: Person
-  cursor: String
-}
-
-/*
- * Information about pagination in a connection.
-
- */
-export interface PageInfo {
-  hasNextPage: Boolean
-  hasPreviousPage: Boolean
-  startCursor?: String
-  endCursor?: String
-}
-
-/*
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
 */
 export type Long = string
 
-/*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
-*/
-export type Int = number
+export type DateTime = Date | string
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
@@ -2137,19 +3104,22 @@ The `Boolean` scalar type represents `true` or `false`.
 export type Boolean = boolean
 
 /*
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
-*/
-export type Float = number
-
-/*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
 export type ID_Input = string | number
 export type ID_Output = string
 
-export type DateTime = Date | string
-
 /*
 The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 */
 export type String = string
+
+/*
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). 
+*/
+export type Float = number
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1. 
+*/
+export type Int = number

@@ -11,6 +11,7 @@ type Film {
   directors: [Person!]! @relation(name: "DirectedFilms")
   writers: [Person!]! @relation(name: "WrittenFilms")
   actors: [Person!]! @relation(name: "PlayedFilms")
+  comments: [Comment!]!
 }
 
 type Person {
@@ -20,9 +21,22 @@ type Person {
   directedFilms: [Film!]! @relation(name: "DirectedFilms")
   writtenFilms: [Film!]! @relation(name: "WrittenFilms")
   playedFilms: [Film!]! @relation(name: "PlayedFilms")
+  comments: [Comment!]!
 }
 
 type Genre {
   id: ID! @unique
   genre: String!
+}
+
+type User {
+  id: ID! @unique
+  name: String!
+}
+
+type Comment {
+  id: ID! @unique
+  user: User!
+  film: Film!
+  text: String!
 }

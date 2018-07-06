@@ -5,8 +5,6 @@ type Query {
   film(id: ID!): Film!
   search(search: String!): [Film!]!
 }
-
-# type Mutation {
-#  createPost(title: String!, text: String): Post
-#  deletePost(id: ID!): Post
-#}
+type Mutation {
+  addComment(userId: String!, filmId: String!, text: String): Comment!
+}
