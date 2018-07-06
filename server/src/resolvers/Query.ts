@@ -1,10 +1,11 @@
 import { Context } from '../utils';
+import { Film } from '../generated/prisma';
 
 const films = (parent, args, context: Context, info) => {
   return context.db.query.films({ orderBy: 'rating_DESC' }, info);
 };
 
-const film = (parent, { id }: { id: string }, context: Context, info) => {
+const film = (parent, { id }: { id: Film['id'] }, context: Context, info) => {
   return context.db.query.film({ where: { id } }, info);
 };
 
