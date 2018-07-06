@@ -1,4 +1,4 @@
-endpoint: http://localhost:4466
+endpoint: ${env:PRISMA_ENDPOINT}
 
 datamodel: datamodel.graphql
 
@@ -10,4 +10,4 @@ hooks:
     - graphql get-schema
     - graphql codegen
 
-secret: mysecret123
+secret: ${env:PRISMA_SECRET}
