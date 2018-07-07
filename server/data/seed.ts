@@ -32,6 +32,7 @@ const people = compose(
 
 const beforeSeed = async () => {
   await db.mutation.deleteManyGenres({});
+  await db.mutation.deleteManyComments({});
   await db.mutation.deleteManyPersons({});
   await db.mutation.deleteManyFilms({});
 };
@@ -54,29 +55,41 @@ const beforeSeed = async () => {
 
   // Seed films
   forEach(async ({ genres, directors, writers, actors, ...film }) => {
-    const genreIds = await db.query.genres({
-      where: { OR: map(genre => ({ genre }), genres) },
-    });
+    const genreIds = await db.query.genres(
+      {
+        where: { OR: map(genre => ({ genre }), genres) },
+      },
+      '{ id }'
+    );
 
-    const directorIds = await db.query.persons({
-      where: { OR: map(name, directors) },
-    });
+    const directorIds = await db.query.persons(
+      {
+        where: { OR: map(name, directors) },
+      },
+      '{ id }'
+    );
 
-    const writerIds = await db.query.persons({
-      where: { OR: map(name, writers) },
-    });
+    const writerIds = await db.query.persons(
+      {
+        where: { OR: map(name, writers) },
+      },
+      '{ id }'
+    );
 
-    const actorIds = await db.query.persons({
-      where: { OR: map(name, actors) },
-    });
+    const actorIds = await db.query.persons(
+      {
+        where: { OR: map(name, actors) },
+      },
+      '{ id }'
+    );
 
     await db.mutation.createFilm({
       data: {
         ...film,
-        genres: { connect: map(pick(['id']), genreIds) },
-        directors: { connect: map(pick(['id']), directorIds) },
-        writers: { connect: map(pick(['id']), writerIds) },
-        actors: { connect: map(pick(['id']), actorIds) },
+        genres: { connect: genreIds },
+        directors: { connect: directorIds },
+        writers: { connect: writerIds },
+        actors: { connect: actorIds },
       },
     });
   }, data);

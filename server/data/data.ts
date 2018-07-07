@@ -19,6 +19,7 @@ import {
   toLower,
   pick,
   replace,
+  concat,
 } from 'ramda';
 
 type Film = {
@@ -66,7 +67,7 @@ const toArray = compose(
 const toJSON = compose(
   JSON.parse,
   readFileSync,
-  file => `./data/json/${file}`
+  concat('./data/json/')
 );
 
 const normalizeKeys = compose(
