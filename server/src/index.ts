@@ -10,7 +10,6 @@ const server = new GraphQLServer({
     ...req,
     db: new Prisma({
       endpoint: PRISMA_ENDPOINT,
-      debug: true,
       secret: PRISMA_SECRET,
     }),
   }),
