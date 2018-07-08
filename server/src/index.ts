@@ -1,5 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga';
 import { Prisma } from './generated/prisma';
+import { PRISMA_ENDPOINT, PRISMA_SECRET } from './config';
 import resolvers from './resolvers';
 
 const server = new GraphQLServer({
@@ -8,9 +9,9 @@ const server = new GraphQLServer({
   context: req => ({
     ...req,
     db: new Prisma({
-      endpoint: process.env.PRISMA_ENDPOINT,
+      endpoint: PRISMA_ENDPOINT,
       debug: true,
-      secret: process.env.PRISMA_SECRET,
+      secret: PRISMA_SECRET,
     }),
   }),
 });

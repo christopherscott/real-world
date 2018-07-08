@@ -1,10 +1,11 @@
-# import Film from "./generated/prisma.graphql"
+# import { Film } from "./generated/prisma.graphql"
 
 type Query {
   films: [Film!]!
   film(id: ID!): Film!
   search(search: String!): [Film!]!
 }
+
 type Mutation {
   addComment(userId: String!, filmId: String!, text: String): Comment!
 }

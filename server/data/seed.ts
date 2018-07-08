@@ -1,5 +1,5 @@
 import data from './data';
-import { map, prop, compose, flatten, uniq, split, forEach, pick } from 'ramda';
+import { map, prop, compose, flatten, uniq, split, forEach } from 'ramda';
 import { Prisma } from '../src/generated/prisma';
 
 const db: Prisma = new Prisma({
@@ -41,17 +41,15 @@ const beforeSeed = async () => {
   await beforeSeed();
 
   // Seed genres
-  forEach(
-    async genre => {
-      await db.mutation.createGenre({ data: { genre } });
-    },
-    genres as string[]
+  await Promise.all(
+    map(
+      genre => db.mutation.createGenre({ data: { genre } }),
+      genres as string[]
+    )
   );
 
   // Seed people
-  forEach(async person => {
-    await db.mutation.createPerson({ data: person });
-  }, people);
+  await Promise.all(map(data => db.mutation.createPerson({ data }), people));
 
   // Seed films
   forEach(async ({ genres, directors, writers, actors, ...film }) => {

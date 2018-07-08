@@ -4,21 +4,26 @@
     "start": "dotenv -- nodemon -e ts,graphql -x ts-node src/index.ts",
     "dev": "npm-run-all --parallel start playground",
     "playground": "graphql playground",
+    "jest": "jest",
+    "test": "npm-run-all --parallel start jest",
     "commit": "npx git-cz"
   },
   "dependencies": {
-    "graphql-import": "^0.6.0",
     "graphql-yoga": "^1.14.12",
     "prisma-binding": "^2.1.0",
     "ramda": "^0.25.0"
   },
   "devDependencies": {
+    "@types/jest": "^23.1.4",
     "@types/ramda": "^0.25.34",
     "dotenv-cli": "^1.4.0",
     "graphql-cli": "^2.16.4",
+    "graphql-request": "^1.6.0",
+    "jest": "^23.3.0",
     "nodemon": "^1.17.5",
     "npm-run-all": "^4.1.3",
     "prisma": "^1.11.0",
+    "ts-jest": "^23.0.0",
     "ts-node": "^7.0.0",
     "tslint": "^5.10.0",
     "tslint-config-airbnb": "^5.9.2",
