@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return films and comment matched by search word 1`] = `
+Object {
+  "search": Array [
+    Object {
+      "plot": "Foo Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+      "rating": 9.3,
+      "title": "The Shawshank Redemption",
+    },
+    Object {
+      "text": "Foo",
+    },
+  ],
+}
+`;

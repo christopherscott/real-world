@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should return film 1`] = `
+Object {
+  "film": Object {
+    "rating": 9.3,
+    "title": "The Shawshank Redemption",
+  },
+}
+`;
+
 exports[`should return films ordered by raiting 1`] = `
 Object {
   "films": Array [
@@ -16,12 +25,12 @@ Object {
       "title": "The Godfather: Part II",
     },
     Object {
-      "rating": 9,
-      "title": "Pulp Fiction",
+      "rating": 8.9,
+      "title": "12 Angry Men",
     },
     Object {
-      "rating": 9,
-      "title": "The Good, the Bad and the Ugly",
+      "rating": 8.8,
+      "title": "Fight Club",
     },
   ],
 }

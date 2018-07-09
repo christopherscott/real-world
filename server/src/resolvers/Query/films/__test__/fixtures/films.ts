@@ -1,4 +1,4 @@
-import { FilmCreateInput } from '../../../../generated/prisma';
+import { FilmCreateInput } from '../../../../../generated/prisma';
 
 const films: FilmCreateInput[] = [
   {
@@ -35,26 +35,26 @@ const films: FilmCreateInput[] = [
     votes: 496772,
   },
   {
-    title: 'Pulp Fiction',
-    year: '1994-01-01T00:00:00.000Z',
-    runtime: '1970-01-01T02:48:00.000Z',
+    title: '12 Angry Men',
+    year: '1957-01-01T00:00:00.000Z',
+    runtime: '1970-01-01T01:36:00.000Z',
     plot:
-      "The lives of two mob hit men, a boxer, a gangster's wife, and a pair of diner bandits intertwine in four tales of violence and redemption.",
+      'A dissenting juror in a murder trial slowly manages to convince the others that the case is not as obviously clear as it seemed in court.',
     poster:
-      'http://ia.media-imdb.com/images/M/MV5BMjE0ODk2NjczOV5BMl5BanBnXkFtZTYwNDQ0NDg4._V1_SX300.jpg',
-    rating: 9,
-    votes: 843376,
+      'http://ia.media-imdb.com/images/M/MV5BODQwOTc5MDM2N15BMl5BanBnXkFtZTcwODQxNTEzNA@@._V1_SX300.jpg',
+    rating: 8.9,
+    votes: 266350,
   },
   {
-    title: 'The Good, the Bad and the Ugly',
-    year: '1966-01-01T00:00:00.000Z',
-    runtime: '1970-01-01T02:41:00.000Z',
+    title: 'Fight Club',
+    year: '1999-01-01T00:00:00.000Z',
+    runtime: '1970-01-01T02:19:00.000Z',
     plot:
-      'A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.',
+      'An insomniac office worker looking for a way to change his life crosses paths with a devil-may-care soap maker and they form an underground fight club that evolves into something much, much more...',
     poster:
-      'http://ia.media-imdb.com/images/M/MV5BMjIxNjYwNDMzMl5BMl5BanBnXkFtZTcwODA5Mzg3OA@@._V1_SX300.jpg',
-    rating: 9,
-    votes: 325579,
+      'http://ia.media-imdb.com/images/M/MV5BMjIwNTYzMzE1M15BMl5BanBnXkFtZTcwOTE5Mzg3OA@@._V1_SX300.jpg',
+    rating: 8.8,
+    votes: 819812,
   },
 ];
 
