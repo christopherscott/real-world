@@ -1,11 +1,11 @@
 import { Context } from '../../../utils';
-import { Film } from '../../../generated/prisma';
+import { SearchQueryArgs } from '../../../generated/types';
 
 // TODO: Use elasticsearch
 export default {
   search: async (
     parent,
-    { search }: { search: string },
+    { search }: SearchQueryArgs,
     context: Context,
     info
   ) => {

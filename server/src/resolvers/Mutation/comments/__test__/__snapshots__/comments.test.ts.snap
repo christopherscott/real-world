@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should add comment 1`] = `
+Object {
+  "addComment": Object {
+    "text": "Foo Baz",
+  },
+}
+`;

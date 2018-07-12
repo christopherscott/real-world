@@ -1,5 +1,5 @@
 import { Context } from '../../../utils';
-import { Film } from '../../../generated/prisma';
+import { Film } from '../../../generated/types';
 
 export default {
   films(parent, args, context: Context, info) {

@@ -1,6 +1,4 @@
-# import ID from "./generated/prisma.graphql"
-# import Film from "./generated/prisma.graphql"
-# import Comment from "./generated/prisma.graphql"
+# import * from "./generated/prisma.graphql"
 
 type Query {
   films: [Film!]!

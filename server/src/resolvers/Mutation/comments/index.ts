@@ -1,14 +1,10 @@
 import { Context } from '../../../utils';
-import { User, Film, Comment } from '../../../generated/prisma';
+import { AddCommentMutationArgs } from '../../../generated/types';
 
 export default {
   addComment(
     parent,
-    {
-      userId,
-      filmId,
-      text,
-    }: { userId: User['id']; filmId: Film['id']; text: Comment['text'] },
+    { input: { userId, filmId, text } }: AddCommentMutationArgs,
     context: Context,
     info
   ) {
