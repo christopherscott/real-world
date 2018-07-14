@@ -1,41 +1,28 @@
-import { map } from 'ramda';
-import { db, client } from '../../../../testConfig';
-import films from './fixtures/films';
+import { map, omit, length } from 'ramda';
+import { context, db, clean } from '../../../../testConfig';
+import fixtures from './fixtures';
+import { films, film } from '../index';
 
 afterEach(async () => {
-  await db.clean();
+  await clean();
 });
 
 test('should return films ordered by raiting', async () => {
-  await Promise.all(map(data => db.mutation.createFilm({ data }), films));
+  await Promise.all(
+    map(data => db.mutation.createFilm({ data }), fixtures.films)
+  );
 
-  const query = `
-    query {
-      films {
-        title
-        rating
-      }
-    }
-  `;
+  const result = await films(null, {}, context, null);
 
-  const responseData = await client.request(query);
+  expect(length(result)).toBe(5);
 
-  expect(responseData).toMatchSnapshot();
+  expect(map(omit(['id']), result)).toMatchSnapshot();
 });
 
 test('should return film', async () => {
-  const { id } = await db.mutation.createFilm({ data: films[0] });
+  const { id } = await db.mutation.createFilm({ data: fixtures.films[0] });
 
-  const query = `
-    query {
-      film(id: "${id}") {
-        title
-        rating
-      }
-    }
-  `;
+  const result = await film(null, { id }, context, null);
 
-  const responseData = await client.request(query);
-
-  expect(responseData).toMatchSnapshot();
+  expect(omit(['id'], result)).toMatchSnapshot();
 });

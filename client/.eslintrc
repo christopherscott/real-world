@@ -1,22 +1,13 @@
 {
   "parser": "babel-eslint",
-  "extends": [
-    "eslint-config-airbnb",
-    "prettier",
-    "prettier/react"
-  ],
+  "extends": ["eslint-config-airbnb", "prettier", "prettier/react"],
   "env": {
     "browser": true,
     "node": true,
     "jest": true,
     "es6": true
   },
-  "plugins": [
-    "react",
-    "prettier",
-    "jsx-a11y",
-    "flowtype"
-  ],
+  "plugins": ["react", "prettier", "jsx-a11y", "flowtype"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -25,7 +16,10 @@
     }
   },
   "rules": {
-    "prettier/prettier": ["error", {"trailingComma": "es5", "singleQuote": true}],
+    "prettier/prettier": [
+      "error",
+      { "trailingComma": "es5", "singleQuote": true }
+    ],
     "arrow-parens": [2, "as-needed"],
     "arrow-body-style": [2, "as-needed"],
     "comma-dangle": [2, "always-multiline"],
@@ -35,7 +29,7 @@
     "import/imports-first": 0,
     "import/newline-after-import": 0,
     "import/no-dynamic-require": 0,
-    "import/no-extraneous-dependencies": [2, {"devDependencies": true}],
+    "import/no-extraneous-dependencies": [2, { "devDependencies": true }],
     "import/no-named-as-default": 0,
     "import/no-unresolved": 2,
     "import/prefer-default-export": 0,

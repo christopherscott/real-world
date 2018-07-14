@@ -1,0 +1,5 @@
+endpoint: ${env:PRISMA_ENDPOINT}
+
+datamodel: ../../prisma/datamodel.graphql
+
+disableAuth: true
