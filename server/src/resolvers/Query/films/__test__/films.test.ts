@@ -12,7 +12,7 @@ test('should return films ordered by raiting', async () => {
     map(data => db.mutation.createFilm({ data }), fixtures.films)
   );
 
-  const result = await films(null, {}, context, null);
+  const result = await films(null, null, context, null);
 
   expect(length(result)).toBe(5);
 
@@ -20,7 +20,10 @@ test('should return films ordered by raiting', async () => {
 });
 
 test('should return film', async () => {
-  const { id } = await db.mutation.createFilm({ data: fixtures.films[0] });
+  const { id } = await db.mutation.createFilm(
+    { data: fixtures.films[0] },
+    '{ id }'
+  );
 
   const result = await film(null, { id }, context, null);
 
