@@ -1,4 +1,4 @@
-import comments from './comments';
+import * as comments from './comments';
 
 export default {
   ...comments,

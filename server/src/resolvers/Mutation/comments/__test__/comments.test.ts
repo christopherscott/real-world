@@ -1,29 +1,29 @@
-// import { db, client } from '../../../../testConfig';
-// import film from './fixtures/film';
-// import user from './fixtures/user';
+import { omit } from 'ramda';
+import { context, db, clean } from '../../../../testConfig';
+import fixtures from './fixtures';
+import { addComment } from '../index';
 
-// afterEach(async () => {
-//   await db.clean();
-// });
+afterEach(async () => {
+  await clean();
+});
 
-// test('should add comment', async () => {
-//   const { id: filmId } = await db.mutation.createFilm({ data: film }, '{ id }');
+test('should return films and comment matched by search word', async () => {
+  const { id: filmId } = await db.mutation.createFilm(
+    { data: fixtures.film },
+    '{ id }'
+  );
 
-//   const { id: userId } = await db.mutation.createUser({ data: user }, '{ id }');
+  const { id: userId } = await db.mutation.createUser(
+    { data: fixtures.user },
+    '{ id }'
+  );
 
-//   const query = `
-//     mutation {
-//       addComment(input: {
-//         filmId: "${filmId}",
-//         userId: "${userId}",
-//         text: "Foo Baz"
-//       }) {
-//         text
-//       }
-//     }
-//   `;
+  const result = await addComment(
+    null,
+    { input: { userId, filmId, text: 'Foo' } },
+    context,
+    null
+  );
 
-//   const responseData = await client.request(query);
-
-//   expect(responseData).toMatchSnapshot();
-// });
+  expect(omit(['id'], result)).toMatchSnapshot();
+});
