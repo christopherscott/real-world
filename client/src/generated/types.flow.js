@@ -5,22 +5,30 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: SearchPosts
+// GraphQL query operation: Films
 // ====================================================
 
-export type SearchPosts_search = {|
-  +__typename: "Post",
+export type Films_films_directors = {|
+  +__typename: "Person",
+  +firstName: string,
+  +lastName: string,
+|};
+
+export type Films_films = {|
+  +__typename: "Film",
   +id: string,
   +title: string,
-  +text: string,
+  +year: any,
+  +runtime: any,
+  +plot: string,
+  +poster: string,
+  +rating: number,
+  +votes: number,
+  +directors: ?$ReadOnlyArray<Films_films_directors>,
 |};
 
-export type SearchPosts = {|
-  +search: $ReadOnlyArray<SearchPosts_search>
-|};
-
-export type SearchPostsVariables = {|
-  +search: string
+export type Films = {|
+  +films: $ReadOnlyArray<Films_films>
 |};
 
 /* @flow */

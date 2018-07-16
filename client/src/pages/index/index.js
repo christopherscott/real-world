@@ -3,45 +3,53 @@
 import React from 'react';
 import { Query, type QueryRenderProps } from 'react-apollo';
 import gql from 'graphql-tag';
-import {
-  type SearchPosts,
-  type SearchPostsVariables,
-} from '../../generated/types.flow';
+import { withStyles } from '@material-ui/core/styles';
+import { type Films } from '../../generated/types.flow';
+import MovieCard from '../../components/MovieCard';
 
-const SEARCH_POSTS = gql`
-  query SearchPosts($search: String!) {
-    search(search: $search) {
+const FILMS = gql`
+  query Films {
+    films {
       id
       title
-      text
+      year
+      runtime
+      plot
+      poster
+      rating
+      votes
+      directors {
+        firstName
+        lastName
+      }
     }
   }
 `;
 
-const IndexPage = () => (
-  <Query
-    query={SEARCH_POSTS}
-    variables={({ search: '' }: SearchPostsVariables)}
-  >
-    {({
-      loading,
-      error,
-      data: { search },
-    }: QueryRenderProps<SearchPosts, SearchPostsVariables>) => (
+const styles = {
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    margin: '50px',
+    gridGap: '20px',
+  },
+};
+
+const IndexPage = ({ classes }) => (
+  <Query query={FILMS}>
+    {({ loading, error, data: { films } }: QueryRenderProps<Films>) => (
       <React.Fragment>
         {loading && 'lodaing'}
         {error && 'error'}
         {!loading &&
-          !error &&
-          search.map(({ id, title, text }) => (
-            <React.Fragment key={id}>
-              <h1>{title}</h1>
-              <p>{text}</p>
-            </React.Fragment>
-          ))}
+          !error && (
+            <div className={classes.grid}>
+              {films.map(({ id, ...data }) => <MovieCard key={id} {...data} />)}
+            </div>
+          )}
       </React.Fragment>
     )}
   </Query>
 );
 
-export default IndexPage;
+export default withStyles(styles)(IndexPage);

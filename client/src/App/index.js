@@ -8,8 +8,11 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
+import { compose } from 'ramda';
 import { hot } from 'react-hot-loader';
-import IndexPage from '../pages/index';
+import { withStyles } from '@material-ui/core/styles';
+import Header from '../components/Header';
+import Router from '../Router';
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000',
@@ -49,10 +52,25 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const styles = {
+  '@global': {
+    body: {
+      margin: 0,
+      padding: 0,
+    },
+  },
+};
+
 const App = () => (
   <ApolloProvider client={client}>
-    <IndexPage />
+    <React.Fragment>
+      <Header title="Movies" />
+      <Router />
+    </React.Fragment>
   </ApolloProvider>
 );
 
-export default hot(module)(App);
+export default compose(
+  hot(module),
+  withStyles(styles)
+)(App);
