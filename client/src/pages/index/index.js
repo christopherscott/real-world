@@ -3,9 +3,8 @@
 import React from 'react';
 import { Query, type QueryRenderProps } from 'react-apollo';
 import gql from 'graphql-tag';
-import { withStyles } from '@material-ui/core/styles';
+import MovieList from '../../components/MovieList';
 import { type Films } from '../../generated/types.flow';
-import MovieCard from '../../components/MovieCard';
 
 const FILMS = gql`
   query Films {
@@ -19,6 +18,7 @@ const FILMS = gql`
       rating
       votes
       directors {
+        id
         firstName
         lastName
       }
@@ -26,30 +26,12 @@ const FILMS = gql`
   }
 `;
 
-const styles = {
-  grid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
-    margin: '50px',
-    gridGap: '20px',
-  },
-};
-
-const IndexPage = ({ classes }) => (
+const IndexPage = () => (
   <Query query={FILMS}>
     {({ loading, error, data: { films } }: QueryRenderProps<Films>) => (
-      <React.Fragment>
-        {loading && 'lodaing'}
-        {error && 'error'}
-        {!loading &&
-          !error && (
-            <div className={classes.grid}>
-              {films.map(({ id, ...data }) => <MovieCard key={id} {...data} />)}
-            </div>
-          )}
-      </React.Fragment>
+      <MovieList loading={loading} error={error} films={films} />
     )}
   </Query>
 );
 
-export default withStyles(styles)(IndexPage);
+export default IndexPage;

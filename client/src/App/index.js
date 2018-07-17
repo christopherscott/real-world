@@ -8,9 +8,14 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { ApolloLink } from 'apollo-link';
 import { setContext } from 'apollo-link-context';
-import { compose } from 'ramda';
+import { compose } from 'recompose';
 import { hot } from 'react-hot-loader';
-import { withStyles } from '@material-ui/core/styles';
+import {
+  MuiThemeProvider,
+  createMuiTheme,
+  withStyles,
+} from '@material-ui/core/styles';
+import grey from '@material-ui/core/colors/grey';
 import Header from '../components/Header';
 import Router from '../Router';
 
@@ -52,6 +57,13 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const theme = createMuiTheme({
+  palette: {
+    primary: grey,
+    secondary: grey,
+  },
+});
+
 const styles = {
   '@global': {
     body: {
@@ -63,10 +75,12 @@ const styles = {
 
 const App = () => (
   <ApolloProvider client={client}>
-    <React.Fragment>
-      <Header title="Movies" />
-      <Router />
-    </React.Fragment>
+    <MuiThemeProvider theme={theme}>
+      <React.Fragment>
+        <Header title="Movies" />
+        <Router />
+      </React.Fragment>
+    </MuiThemeProvider>
   </ApolloProvider>
 );
 

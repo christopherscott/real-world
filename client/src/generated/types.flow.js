@@ -10,6 +10,7 @@
 
 export type Films_films_directors = {|
   +__typename: "Person",
+  +id: string,
   +firstName: string,
   +lastName: string,
 |};

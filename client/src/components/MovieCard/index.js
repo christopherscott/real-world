@@ -47,11 +47,12 @@ const MovieCard = ({
       <CardContent className={classes.content}>
         <Typography variant="title">{title}</Typography>
         <Typography variant="subheading" color="textSecondary">
-          {directors.map(({ firstName, lastName }) => (
-            <React.Fragment>
-              {firstName} {lastName}
-            </React.Fragment>
-          ))}
+          {directors &&
+            directors.map(({ id, firstName, lastName }) => (
+              <React.Fragment key={id}>
+                {firstName} {lastName}
+              </React.Fragment>
+            ))}
         </Typography>
       </CardContent>
     </div>
