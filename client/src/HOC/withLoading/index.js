@@ -22,9 +22,11 @@ const withLoading = (size: number = 100) =>
   branch(
     ({ loading }: Props) => loading,
     renderComponent(
-      withStyles(styles)(({ classes }) => (
-        <CircularProgress className={classes.progress} size={size} />
-      ))
+      withStyles(styles)(
+        ({ classes }: { classes: { [key: $Keys<typeof styles>]: string } }) => (
+          <CircularProgress className={classes.progress} size={size} />
+        )
+      )
     )
   );
 

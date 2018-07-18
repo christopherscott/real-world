@@ -8,11 +8,12 @@ import withError from '../../HOC/withError';
 import withLoading from '../../HOC/withLoading';
 import MovieCard from '../MovieCard';
 import { type Films } from '../../generated/types.flow';
+import { type ExtractReturn } from '../../types';
 
 type Props = {
   ...Films,
   classes: {
-    [key: string]: string,
+    [key: $Keys<ExtractReturn<typeof styles>>]: string,
   },
 };
 
@@ -34,7 +35,7 @@ const MovieList = ({ classes, films }: Props) => (
     {films &&
       films.map(({ id, ...data }) => (
         <Grid key={id} item xl={3} lg={3} md={4} sm={6} xs={12}>
-          <MovieCard {...data} />
+          <MovieCard id={id} {...data} />
         </Grid>
       ))}
   </Grid>

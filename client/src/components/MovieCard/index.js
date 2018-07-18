@@ -1,15 +1,18 @@
 // @flow
 
-import * as React from 'react';
+import React from 'react';
+import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Styled from '../../utils/Styled';
 import { type Films_films as Film } from '../../generated/types.flow';
 
 type Props = {
   ...Film,
+  classes: {
+    [key: $Keys<typeof styles>]: string,
+  },
 };
 
 const styles = {
@@ -32,6 +35,7 @@ const styles = {
 };
 
 const MovieCard = ({
+  classes,
   title,
   year,
   runtime,
@@ -41,30 +45,26 @@ const MovieCard = ({
   votes,
   directors,
 }: Props) => (
-  <Styled styles={styles}>
-    {({ classes }) => (
-      <Card className={classes.card}>
-        <div className={classes.details}>
-          <CardContent className={classes.content}>
-            <Typography variant="title">{title}</Typography>
-            <Typography variant="subheading" color="textSecondary">
-              {directors &&
-                directors.map(({ id, firstName, lastName }) => (
-                  <React.Fragment key={id}>
-                    {firstName} {lastName}
-                  </React.Fragment>
-                ))}
-            </Typography>
-          </CardContent>
-        </div>
-        <CardMedia
-          className={classes.cover}
-          image={poster}
-          title="Live from space album cover"
-        />
-      </Card>
-    )}
-  </Styled>
+  <Card className={classes.card}>
+    <div className={classes.details}>
+      <CardContent className={classes.content}>
+        <Typography variant="title">{title}</Typography>
+        <Typography variant="subheading" color="textSecondary">
+          {directors &&
+            directors.map(({ id, firstName, lastName }) => (
+              <React.Fragment key={id}>
+                {firstName} {lastName}
+              </React.Fragment>
+            ))}
+        </Typography>
+      </CardContent>
+    </div>
+    <CardMedia
+      className={classes.cover}
+      image={poster}
+      title="Live from space album cover"
+    />
+  </Card>
 );
 
-export default MovieCard;
+export default withStyles(styles)(MovieCard);
