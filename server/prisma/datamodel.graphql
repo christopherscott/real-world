@@ -13,11 +13,9 @@ type Movie {
   releaseDate: DateTime!
 
   poster: String!
-  backdrop: String!
   genres: [Genre!]!
 
   runtime: DateTime!
-  revenue: Int!
 
   # OMDB
   director: String!

@@ -315,10 +315,8 @@ type Movie implements Node {
   popularity: Float!
   releaseDate: DateTime!
   poster: String!
-  backdrop: String!
   genres(where: GenreWhereInput, orderBy: GenreOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Genre!]
   runtime: DateTime!
-  revenue: Int!
   director: String!
   actors: String!
   ratings(where: RatingWhereInput, orderBy: RatingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Rating!]
@@ -340,9 +338,7 @@ input MovieCreateInput {
   popularity: Float!
   releaseDate: DateTime!
   poster: String!
-  backdrop: String!
   runtime: DateTime!
-  revenue: Int!
   director: String!
   actors: String!
   genres: GenreCreateManyInput
@@ -360,9 +356,7 @@ input MovieCreateWithoutRatingsInput {
   popularity: Float!
   releaseDate: DateTime!
   poster: String!
-  backdrop: String!
   runtime: DateTime!
-  revenue: Int!
   director: String!
   actors: String!
   genres: GenreCreateManyInput
@@ -390,12 +384,8 @@ enum MovieOrderByInput {
   releaseDate_DESC
   poster_ASC
   poster_DESC
-  backdrop_ASC
-  backdrop_DESC
   runtime_ASC
   runtime_DESC
-  revenue_ASC
-  revenue_DESC
   director_ASC
   director_DESC
   actors_ASC
@@ -413,9 +403,7 @@ type MoviePreviousValues {
   popularity: Float!
   releaseDate: DateTime!
   poster: String!
-  backdrop: String!
   runtime: DateTime!
-  revenue: Int!
   director: String!
   actors: String!
 }
@@ -465,9 +453,7 @@ input MovieUpdateInput {
   popularity: Float
   releaseDate: DateTime
   poster: String
-  backdrop: String
   runtime: DateTime
-  revenue: Int
   director: String
   actors: String
   genres: GenreUpdateManyInput
@@ -489,9 +475,7 @@ input MovieUpdateWithoutRatingsDataInput {
   popularity: Float
   releaseDate: DateTime
   poster: String
-  backdrop: String
   runtime: DateTime
-  revenue: Int
   director: String
   actors: String
   genres: GenreUpdateManyInput
@@ -715,46 +699,6 @@ input MovieWhereInput {
 
   """All values not ending with the given string."""
   poster_not_ends_with: String
-  backdrop: String
-
-  """All values that are not equal to given value."""
-  backdrop_not: String
-
-  """All values that are contained in given list."""
-  backdrop_in: [String!]
-
-  """All values that are not contained in given list."""
-  backdrop_not_in: [String!]
-
-  """All values less than the given value."""
-  backdrop_lt: String
-
-  """All values less than or equal the given value."""
-  backdrop_lte: String
-
-  """All values greater than the given value."""
-  backdrop_gt: String
-
-  """All values greater than or equal the given value."""
-  backdrop_gte: String
-
-  """All values containing the given string."""
-  backdrop_contains: String
-
-  """All values not containing the given string."""
-  backdrop_not_contains: String
-
-  """All values starting with the given string."""
-  backdrop_starts_with: String
-
-  """All values not starting with the given string."""
-  backdrop_not_starts_with: String
-
-  """All values ending with the given string."""
-  backdrop_ends_with: String
-
-  """All values not ending with the given string."""
-  backdrop_not_ends_with: String
   runtime: DateTime
 
   """All values that are not equal to given value."""
@@ -777,28 +721,6 @@ input MovieWhereInput {
 
   """All values greater than or equal the given value."""
   runtime_gte: DateTime
-  revenue: Int
-
-  """All values that are not equal to given value."""
-  revenue_not: Int
-
-  """All values that are contained in given list."""
-  revenue_in: [Int!]
-
-  """All values that are not contained in given list."""
-  revenue_not_in: [Int!]
-
-  """All values less than the given value."""
-  revenue_lt: Int
-
-  """All values less than or equal the given value."""
-  revenue_lte: Int
-
-  """All values greater than the given value."""
-  revenue_gt: Int
-
-  """All values greater than or equal the given value."""
-  revenue_gte: Int
   director: String
 
   """All values that are not equal to given value."""
@@ -1229,12 +1151,8 @@ export type MovieOrderByInput =   'id_ASC' |
   'releaseDate_DESC' |
   'poster_ASC' |
   'poster_DESC' |
-  'backdrop_ASC' |
-  'backdrop_DESC' |
   'runtime_ASC' |
   'runtime_DESC' |
-  'revenue_ASC' |
-  'revenue_DESC' |
   'director_ASC' |
   'director_DESC' |
   'actors_ASC' |
@@ -1348,20 +1266,6 @@ export interface MovieWhereInput {
   poster_not_starts_with?: String
   poster_ends_with?: String
   poster_not_ends_with?: String
-  backdrop?: String
-  backdrop_not?: String
-  backdrop_in?: String[] | String
-  backdrop_not_in?: String[] | String
-  backdrop_lt?: String
-  backdrop_lte?: String
-  backdrop_gt?: String
-  backdrop_gte?: String
-  backdrop_contains?: String
-  backdrop_not_contains?: String
-  backdrop_starts_with?: String
-  backdrop_not_starts_with?: String
-  backdrop_ends_with?: String
-  backdrop_not_ends_with?: String
   runtime?: DateTime
   runtime_not?: DateTime
   runtime_in?: DateTime[] | DateTime
@@ -1370,14 +1274,6 @@ export interface MovieWhereInput {
   runtime_lte?: DateTime
   runtime_gt?: DateTime
   runtime_gte?: DateTime
-  revenue?: Int
-  revenue_not?: Int
-  revenue_in?: Int[] | Int
-  revenue_not_in?: Int[] | Int
-  revenue_lt?: Int
-  revenue_lte?: Int
-  revenue_gt?: Int
-  revenue_gte?: Int
   director?: String
   director_not?: String
   director_in?: String[] | String
@@ -1470,9 +1366,7 @@ export interface MovieCreateWithoutRatingsInput {
   popularity: Float
   releaseDate: DateTime
   poster: String
-  backdrop: String
   runtime: DateTime
-  revenue: Int
   director: String
   actors: String
   genres?: GenreCreateManyInput
@@ -1549,9 +1443,7 @@ export interface MovieCreateInput {
   popularity: Float
   releaseDate: DateTime
   poster: String
-  backdrop: String
   runtime: DateTime
-  revenue: Int
   director: String
   actors: String
   genres?: GenreCreateManyInput
@@ -1564,9 +1456,7 @@ export interface MovieUpdateWithoutRatingsDataInput {
   popularity?: Float
   releaseDate?: DateTime
   poster?: String
-  backdrop?: String
   runtime?: DateTime
-  revenue?: Int
   director?: String
   actors?: String
   genres?: GenreUpdateManyInput
@@ -1602,9 +1492,7 @@ export interface MovieUpdateInput {
   popularity?: Float
   releaseDate?: DateTime
   poster?: String
-  backdrop?: String
   runtime?: DateTime
-  revenue?: Int
   director?: String
   actors?: String
   genres?: GenreUpdateManyInput
@@ -1717,10 +1605,8 @@ export interface Movie extends Node {
   popularity: Float
   releaseDate: DateTime
   poster: String
-  backdrop: String
   genres?: Genre[]
   runtime: DateTime
-  revenue: Int
   director: String
   actors: String
   ratings?: Rating[]
@@ -1751,9 +1637,7 @@ export interface MoviePreviousValues {
   popularity: Float
   releaseDate: DateTime
   poster: String
-  backdrop: String
   runtime: DateTime
-  revenue: Int
   director: String
   actors: String
 }

@@ -1,4 +1,5 @@
 import { writeFile, access, constants } from 'fs';
+import * as retry from 'async-retry';
 import { promisify } from 'util';
 import * as download from 'download';
 
@@ -11,7 +12,14 @@ export default async (url: string, name: string, path: string) => {
   const exists = await existsAsync(`${path}${name}`);
 
   if (!exists) {
-    const file = await download(`${url}${name}`);
+    const file = await retry(
+      async () => {
+        const data = await download(`${url}${name}`);
+
+        return data;
+      },
+      { retries: 2 }
+    );
 
     await writeFileAsync(`${path}${name}`, file);
   }

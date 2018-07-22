@@ -9,6 +9,9 @@ import {
   equals,
   prop,
   propOr,
+  replace,
+  defaultTo,
+  unnest,
 } from 'ramda';
 import download from './utils/download';
 import callApi from './utils/api';
@@ -77,43 +80,49 @@ const saveImage = async (img, type) => {
   return `${type}${img}`;
 };
 
-const getMovie = async (id, genreIds) => {
+const getMovie = async (movie, genreIds) => {
   const {
-    imdb_id,
     title,
     overview,
     popularity,
     release_date,
     poster_path,
-    backdrop_path,
-    genres,
-    runtime,
-    revenue,
-  } = await callApi(API.TMDB, `movie/${id}`);
+    genre_ids,
+  } = movie;
 
   const {
     Title: response,
     Director: director,
     Actors: actors,
     Ratings,
-  } = await callApi(API.OMDB, '', { i: imdb_id });
+    Runtime,
+  } = await callApi(API.OMDB, '', { t: title });
+
+  let poster;
+
+  try {
+    poster = await saveImage(poster_path, 'posters');
+  } catch {
+    poster = 'posters/not_found.jpg';
+  }
 
   if (response) {
     return {
       title,
       overview,
       popularity,
-      revenue,
       director,
       actors,
-      poster: await saveImage(poster_path, 'posters'),
-      backdrop: await saveImage(backdrop_path, 'backdrops'),
+      poster,
       releaseDate: toISO(release_date),
       runtime: compose(
         toISO,
-        toMS
-      )(runtime),
-      genres: map(({ id }) => ({ id: genreIds[id] }), genres),
+        toMS,
+        defaultTo(0),
+        Number,
+        replace(/ min/, '')
+      )(Runtime),
+      genres: map(id => ({ id: genreIds[id] }), genre_ids),
       ratings: getRatings(Ratings),
     };
   }
@@ -133,19 +142,23 @@ const saveMovie = async ({ genres, ratings, ...movie }) => {
   });
 };
 
+const getMovies = async page => {
+  const { results } = await callApi(API.TMDB, 'movie/popular', { page });
+
+  return results;
+};
+
 const seedMovies = async (genres, pages) => {
-  times(async i => {
-    const { results } = await callApi(API.TMDB, 'movie/popular', {
-      page: i + 1,
-      language: 'en-US',
-    });
+  const movies = await Promise.all(times(i => getMovies(i + 1), pages));
 
-    const data = await Promise.all(
-      map(({ id }) => getMovie(id, genres), results)
-    );
+  const data = await Promise.all(
+    map(movie => getMovie(movie, genres), compose(
+      filter(Boolean),
+      unnest
+    )(movies) as {}[])
+  );
 
-    await Promise.all(map(saveMovie, data));
-  }, pages);
+  await Promise.all(map(saveMovie, filter(Boolean, data)));
 };
 
 (async () => {
@@ -153,5 +166,5 @@ const seedMovies = async (genres, pages) => {
 
   const genres = await seedGenres();
 
-  await seedMovies(genres, 1);
+  await seedMovies(genres, 17);
 })();

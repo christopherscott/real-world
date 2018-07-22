@@ -25,9 +25,7 @@ export default async (
 
       return data;
     },
-    {
-      retries: 5,
-    }
+    { retries: 2 }
   );
 
   return data;
