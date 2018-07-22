@@ -1,7 +1,7 @@
 import { map, omit, length } from 'ramda';
 import { context, db, clean } from '../../../../testConfig';
 import fixtures from './fixtures';
-import { search } from '../index';
+import { search } from '..';
 
 afterEach(async () => {
   await clean();

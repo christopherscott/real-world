@@ -1,42 +1,38 @@
-type Film {
-  id: ID! @unique
-  title: String!
-  year: DateTime!
-  runtime: DateTime!
-  plot: String!
-  poster: String!
-  rating: Float!
-  votes: Int!
-  genres: [Genre!]!
-  directors: [Person!]! @relation(name: "DirectedFilms")
-  writers: [Person!]! @relation(name: "WrittenFilms")
-  actors: [Person!]! @relation(name: "PlayedFilms")
-  comments: [Comment!]!
+enum RatingSource {
+  IMDb
+  RottenTomatoes
+  MetaCritic
 }
 
-type Person {
+type Movie {
+  # TMDB
   id: ID! @unique
-  firstName: String!
-  lastName: String!
-  directedFilms: [Film!]! @relation(name: "DirectedFilms")
-  writtenFilms: [Film!]! @relation(name: "WrittenFilms")
-  playedFilms: [Film!]! @relation(name: "PlayedFilms")
-  comments: [Comment!]!
+  title: String!
+  overview: String!
+  popularity: Float!
+  releaseDate: DateTime!
+
+  poster: String!
+  backdrop: String!
+  genres: [Genre!]!
+
+  runtime: DateTime!
+  revenue: Int!
+
+  # OMDB
+  director: String!
+  actors: String!
+  ratings: [Rating!]! @relation(name: "RatedMovie", onDelete: CASCADE)
 }
 
 type Genre {
   id: ID! @unique
-  genre: String!
+  name: String! @unique
 }
 
-type User {
+type Rating {
   id: ID! @unique
-  name: String!
-}
-
-type Comment {
-  id: ID! @unique
-  user: User!
-  film: Film!
-  text: String!
+  source: RatingSource!
+  value: String
+  ratedMovie: Movie @relation(name: "RatedMovie", onDelete: SET_NULL)
 }

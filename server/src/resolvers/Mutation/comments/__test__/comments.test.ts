@@ -1,7 +1,7 @@
 import { omit } from 'ramda';
 import { context, db, clean } from '../../../../testConfig';
 import fixtures from './fixtures';
-import { addComment } from '../index';
+import { addComment } from '..';
 
 afterEach(async () => {
   await clean();

@@ -11,14 +11,22 @@
     "commit": "npx git-cz"
   },
   "dependencies": {
+    "async-retry": "^1.2.1",
+    "download": "^7.1.0",
     "graphql-import": "^0.6.0",
     "graphql-tools": "^3.0.5",
     "graphql-yoga": "^1.14.12",
+    "node-fetch": "^2.1.2",
     "prisma-binding": "^2.1.0",
+    "query-string": "^6.1.0",
     "ramda": "^0.25.0"
   },
   "devDependencies": {
+    "@types/async-retry": "^1.2.1",
+    "@types/download": "^6.2.2",
     "@types/jest": "^23.1.4",
+    "@types/node-fetch": "^2.1.2",
+    "@types/query-string": "^6.1.0",
     "@types/ramda": "^0.25.34",
     "dotenv-cli": "^1.4.0",
     "graphql-cli": "^2.16.4",

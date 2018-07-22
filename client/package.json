@@ -7,12 +7,13 @@
     "start": "npx cross-env NODE_ENV=development webpack-dev-server --hot --config webpack.dev.config.js",
     "build": "npx cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
     "gen:introspect": "npx apollo-codegen introspect-schema http://localhost:4000 --output src/generated/schema.json",
-    "gen:types": "npx apollo-codegen generate 'src/**/*.js' --schema src/generated/schema.json --output src/generated/types.flow.js --target flow --addTypename --useFlowExactObjects --useFlowReadOnlyTypes",
+    "gen:types": "npx apollo-codegen generate 'src/**/*.js' --schema src/generated/schema.json --output src/generated/types.flow.js --target flow --addTypename",
     "gen": "npx npm-run-all gen:*",
     "commit": "npx git-cz"
   },
   "dependencies": {
     "@material-ui/core": "^1.4.0",
+    "@material-ui/icons": "^1.1.0",
     "@reach/router": "^1.1.1",
     "apollo-cache-inmemory": "^1.2.5",
     "apollo-client": "^2.3.5",
@@ -25,8 +26,10 @@
     "ramda": "^0.25.0",
     "react": "^16.4.1",
     "react-apollo": "^2.1.8",
+    "react-content-loader": "^3.1.2",
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.3",
+    "react-lazyload": "^2.3.0",
     "recompose": "^0.27.1"
   },
   "devDependencies": {

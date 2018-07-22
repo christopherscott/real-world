@@ -3,7 +3,8 @@
   "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
-    "traling-comma": true
+    "traling-comma": true,
+    "import-name": false
   },
   "rulesDirectory": []
 }

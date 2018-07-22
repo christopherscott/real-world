@@ -8,29 +8,24 @@
 // GraphQL query operation: Films
 // ====================================================
 
-export type Films_films_directors = {|
-  +__typename: "Person",
-  +id: string,
-  +firstName: string,
-  +lastName: string,
-|};
+export type Films_films_genres = {
+  __typename: "Genre",
+  genre: string,
+};
 
-export type Films_films = {|
-  +__typename: "Film",
-  +id: string,
-  +title: string,
-  +year: any,
-  +runtime: any,
-  +plot: string,
-  +poster: string,
-  +rating: number,
-  +votes: number,
-  +directors: ?$ReadOnlyArray<Films_films_directors>,
-|};
+export type Films_films = {
+  __typename: "Film",
+  id: string,
+  title: string,
+  poster: string,
+  rating: number,
+  votes: number,
+  genres: ?Array<Films_films_genres>,
+};
 
-export type Films = {|
-  +films: $ReadOnlyArray<Films_films>
-|};
+export type Films = {
+  films: Array<Films_films>
+};
 
 /* @flow */
 /* eslint-disable */
