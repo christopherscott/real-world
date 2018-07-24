@@ -5,26 +5,37 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: Films
+// GraphQL query operation: Movies
 // ====================================================
 
-export type Films_films_genres = {
-  __typename: "Genre",
-  genre: string,
+export type Movies_movies_ratings = {
+  __typename: "Rating",
+  source: RatingSource,
+  value: ?string,
 };
 
-export type Films_films = {
-  __typename: "Film",
+export type Movies_movies_genres = {
+  __typename: "Genre",
+  name: string,
+};
+
+export type Movies_movies = {
+  __typename: "Movie",
   id: string,
   title: string,
+  overview: string,
+  popularity: number,
+  releaseDate: any,
   poster: string,
-  rating: number,
-  votes: number,
-  genres: ?Array<Films_films_genres>,
+  runtime: any,
+  director: string,
+  actors: string,
+  ratings: ?Array<Movies_movies_ratings>,
+  genres: ?Array<Movies_movies_genres>,
 };
 
-export type Films = {
-  films: Array<Films_films>
+export type Movies = {
+  movies: Array<Movies_movies>
 };
 
 /* @flow */
@@ -34,6 +45,9 @@ export type Films = {
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
+
+// 
+export type RatingSource = "IMDb" | "MetaCritic" | "RottenTomatoes";
 
 //==============================================================
 // END Enums and Input Objects
