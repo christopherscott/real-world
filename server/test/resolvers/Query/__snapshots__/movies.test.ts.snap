@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return movie 1`] = `
+Object {
+  "actors": "Chris Pratt, Bryce Dallas Howard, Rafe Spall, Justice Smith",
+  "director": "J.A. Bayona",
+  "overview": "Several years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar. Claire Dearing, the former park manager and founder of the Dinosaur Protection Group, recruits Owen Grady to help prevent the extinction of the dinosaurs once again.",
+  "popularity": 246.395,
+  "poster": "posters/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg",
+  "releaseDate": "2018-06-06T00:00:00.000Z",
+  "runtime": "1970-01-01T02:08:00.000Z",
+  "title": "Jurassic World: Fallen Kingdom",
+}
+`;
+
+exports[`should return movies ordered by raiting 1`] = `
+Array [
+  Object {
+    "actors": "Chris Pratt, Bryce Dallas Howard, Rafe Spall, Justice Smith",
+    "director": "J.A. Bayona",
+    "overview": "Several years after the demise of Jurassic World, a volcanic eruption threatens the remaining dinosaurs on the island of Isla Nublar. Claire Dearing, the former park manager and founder of the Dinosaur Protection Group, recruits Owen Grady to help prevent the extinction of the dinosaurs once again.",
+    "popularity": 246.395,
+    "poster": "posters/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg",
+    "releaseDate": "2018-06-06T00:00:00.000Z",
+    "runtime": "1970-01-01T02:08:00.000Z",
+    "title": "Jurassic World: Fallen Kingdom",
+  },
+  Object {
+    "actors": "Paul Rudd, Evangeline Lilly, Michael Peña, Walton Goggins",
+    "director": "Peyton Reed",
+    "overview": "As Scott Lang awaits expiration of his term of house detention, Hope van Dyne and Dr. Hank Pym involve him in a scheme to rescue Mrs. van Dyne from the micro-universe into which she has fallen, while two groups of schemers converge on them with intentions of stealing Dr. Pym's inventions.",
+    "popularity": 186.229,
+    "poster": "posters/rv1AWImgx386ULjcf62VYaW8zSt.jpg",
+    "releaseDate": "2018-07-04T00:00:00.000Z",
+    "runtime": "1970-01-01T01:58:00.000Z",
+    "title": "Ant-Man and the Wasp",
+  },
+  Object {
+    "actors": "Chris Hemsworth, Tom Hiddleston, Cate Blanchett, Idris Elba",
+    "director": "Taika Waititi",
+    "overview": "Thor is on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization, at the hands of an all-powerful new threat, the ruthless Hela.",
+    "popularity": 144.854,
+    "poster": "posters/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
+    "releaseDate": "2017-10-25T00:00:00.000Z",
+    "runtime": "1970-01-01T02:10:00.000Z",
+    "title": "Thor: Ragnarok",
+  },
+  Object {
+    "actors": "Robert Downey Jr., Chris Hemsworth, Mark Ruffalo, Chris Evans",
+    "director": "Anthony Russo, Joe Russo",
+    "overview": "As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality. Everything the Avengers have fought for has led up to this moment - the fate of Earth and existence itself has never been more uncertain.",
+    "popularity": 133.421,
+    "poster": "posters/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+    "releaseDate": "2018-04-25T00:00:00.000Z",
+    "runtime": "1970-01-01T02:29:00.000Z",
+    "title": "Avengers: Infinity War",
+  },
+  Object {
+    "actors": "Tom Cruise, Rebecca Ferguson, Henry Cavill, Michelle Monaghan",
+    "director": "Christopher McQuarrie",
+    "overview": "When an IMF mission ends badly, the world is faced with dire consequences. As Ethan Hunt takes it upon himself to fulfil his original briefing, the CIA begin to question his loyalty and his motives. The IMF team find themselves in a race against time, hunted by assassins while trying to prevent a global catastrophe.",
+    "popularity": 130.91,
+    "poster": "posters/80PWnSTkygi3QWWmJ3hrAwqvLnO.jpg",
+    "releaseDate": "2018-07-25T00:00:00.000Z",
+    "runtime": "1970-01-01T02:27:00.000Z",
+    "title": "Mission: Impossible - Fallout",
+  },
+]
+`;

@@ -5,19 +5,14 @@ enum RatingSource {
 }
 
 type Movie {
-  # TMDB
   id: ID! @unique
   title: String!
   overview: String!
   popularity: Float!
   releaseDate: DateTime!
-
   poster: String!
   genres: [Genre!]!
-
   runtime: DateTime!
-
-  # OMDB
   director: String!
   actors: String!
   ratings: [Rating!]! @relation(name: "RatedMovie", onDelete: CASCADE)

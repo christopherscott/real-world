@@ -1,7 +1,7 @@
 import * as search from './search';
-import * as films from './films';
+import * as movies from './movies';
 
 export default {
   ...search,
-  ...films,
+  ...movies,
 };

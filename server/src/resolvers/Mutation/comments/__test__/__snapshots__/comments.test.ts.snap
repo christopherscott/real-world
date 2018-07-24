@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`should return films and comment matched by search word 1`] = `
-Object {
-  "text": "Foo",
-}
-`;

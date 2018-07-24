@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should return movies matched by search word 1`] = `
+Array [
+  Object {
+    "actors": "Tom Cruise, Rebecca Ferguson, Henry Cavill, Michelle Monaghan",
+    "director": "Christopher McQuarrie",
+    "overview": "When an IMF mission ends badly, the world is faced with dire consequences. As Ethan Hunt takes it upon himself to fulfil his original briefing, the CIA begin to question his loyalty and his motives. The IMF team find themselves in a race against time, hunted by assassins while trying to prevent a global catastrophe.",
+    "popularity": 130.91,
+    "poster": "posters/80PWnSTkygi3QWWmJ3hrAwqvLnO.jpg",
+    "releaseDate": "2018-07-25T00:00:00.000Z",
+    "runtime": "1970-01-01T02:27:00.000Z",
+    "title": "Mission: Impossible - Fallout",
+  },
+]
+`;
