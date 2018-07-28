@@ -1,5 +1,3 @@
-
-
 /* @flow */
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
@@ -8,34 +6,36 @@
 // GraphQL query operation: Movies
 // ====================================================
 
-export type Movies_movies_ratings = {
-  __typename: "Rating",
-  source: RatingSource,
-  value: ?string,
+export type Movies_movies_pageInfo = {
+  __typename: 'PageInfo',
+  hasNextPage: boolean, // When paginating forwards, are there more items?
+  endCursor: ?string, // When paginating forwards, the cursor to continue.
 };
 
-export type Movies_movies_genres = {
-  __typename: "Genre",
-  name: string,
+export type Movies_movies_edges_node = {
+  __typename: 'Movie',
+  id: string,
+  title: string,
+  poster: string,
+};
+
+export type Movies_movies_edges = {
+  __typename: 'MovieEdge',
+  node: Movies_movies_edges_node, // The item at the end of the edge.
 };
 
 export type Movies_movies = {
-  __typename: "Movie",
-  id: string,
-  title: string,
-  overview: string,
-  popularity: number,
-  releaseDate: any,
-  poster: string,
-  runtime: any,
-  director: string,
-  actors: string,
-  ratings: ?Array<Movies_movies_ratings>,
-  genres: ?Array<Movies_movies_genres>,
+  __typename: 'MovieConnection',
+  pageInfo: Movies_movies_pageInfo, // Information to aid in pagination.
+  edges: Array<Movies_movies_edges>, // A list of edges.
 };
 
 export type Movies = {
-  movies: Array<Movies_movies>
+  movies: Movies_movies,
+};
+
+export type MoviesVariables = {
+  after?: ?string,
 };
 
 /* @flow */
@@ -45,9 +45,6 @@ export type Movies = {
 //==============================================================
 // START Enums and Input Objects
 //==============================================================
-
-// 
-export type RatingSource = "IMDb" | "MetaCritic" | "RottenTomatoes";
 
 //==============================================================
 // END Enums and Input Objects

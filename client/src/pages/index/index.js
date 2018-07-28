@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import MovieList from '../../containers/MovieList';
 
 const IndexPage = () => <MovieList />;

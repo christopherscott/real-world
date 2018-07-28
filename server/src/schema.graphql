@@ -1,8 +1,16 @@
 # import * from "./generated/prisma.graphql"
 
 type Query {
-  movies: [Movie!]!
-  movie(id: ID!): Movie!
+  movies(
+    where: MovieWhereInput
+    orderBy: MovieOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): MovieConnection!
+  movie(where: MovieWhereUniqueInput!): Movie
   search(search: String!): [Search!]!
 }
 

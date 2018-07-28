@@ -3,6 +3,10 @@
 // import fixtures from './fixtures';
 // import { addComment } from '..';
 
+test('', () => {
+  expect(1).toBe(1);
+});
+
 // afterEach(async () => {
 //   await clean();
 // });

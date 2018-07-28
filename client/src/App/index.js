@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -16,11 +16,11 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
-import Header from '../components/Header';
+import { API } from '../config';
 import Router from '../Router';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:4000',
+  uri: API,
   credentials: 'same-origin',
 });
 
@@ -76,10 +76,7 @@ const styles = {
 const App = () => (
   <ApolloProvider client={client}>
     <MuiThemeProvider theme={theme}>
-      <React.Fragment>
-        <Header title="Movies" />
-        <Router />
-      </React.Fragment>
+      <Router />
     </MuiThemeProvider>
   </ApolloProvider>
 );

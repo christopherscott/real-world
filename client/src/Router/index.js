@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { Router as ReachRouter } from '@reach/router';
 import IndexPage from '../pages/Index';
 

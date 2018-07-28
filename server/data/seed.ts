@@ -166,5 +166,5 @@ const seedMovies = async (genres, pages) => {
 
   const genres = await seedGenres();
 
-  await seedMovies(genres, 17);
+  await seedMovies(genres, 15);
 })();

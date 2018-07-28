@@ -1,15 +1,10 @@
 // @flow
 
-import React from 'react';
-import { compose, map, prop, join, defaultTo } from 'ramda';
+import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import LazyLoad from 'react-lazyload';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
 import Zoom from '@material-ui/core/Zoom';
+import { API } from '../../config';
 import { type Movies_movies as Movie } from '../../generated/types.flow';
 import { type ExtractReturn } from '../../types';
 
@@ -22,97 +17,38 @@ type Props = {
 
 const styles = theme => ({
   card: {
-    display: 'flex',
-    justifyContent: 'space-between',
+    display: 'inline-block',
   },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
+  poster: {
+    backgroundSize: 'cover',
+    backgroundPositionY: 'center',
+    width: '300px',
+    height: '450px',
+    boxShadow: theme.shadows[10],
   },
-  content: {
-    flex: '1 0 auto',
-  },
-  actions: {
-    display: 'flex',
-    padding: theme.spacing.unit * 2,
-  },
-  avatar: {
-    fontSize: '0.5em',
-    width: '30px',
-    height: '30px',
-  },
-  badge: {
-    margin: theme.spacing.unit * 2,
-    background: theme.palette.grey[50],
-    color: theme.palette.grey[900],
-    borderColor: theme.palette.grey[900],
-    borderWidth: '1px',
-    borderStyle: 'dashed',
-  },
-  cover: {
-    minWidth: '150px',
-    height: '223px',
-    backgroundColor: theme.palette.primary.dark,
+  title: {
+    width: '300px',
+    fontFamily: 'Anton, sans-serif',
+    fontSize: '1rem',
+    textTransform: 'uppercase',
+    textAlign: 'left',
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit,
   },
 });
 
-const MovieCard = ({
-  classes,
-  id,
-  title,
-  poster,
-  rating,
-  votes,
-  genres,
-}: Props) => (
-  <div>
+const MovieCard = ({ classes, title, poster }: Props) => (
+  <div className={classes.card}>
     <LazyLoad height={223}>
       <Zoom in>
-        <Badge
-          classes={{
-            badge: classes.badge,
-          }}
-          badgeContent={7.4}
-        >
-          <CardMedia
-            className={classes.cover}
-            image={poster}
-            title="Live from space album cover"
-          />
-        </Badge>
+        <div
+          className={classes.poster}
+          style={{ backgroundImage: `url(${API}/${poster})` }}
+        />
       </Zoom>
     </LazyLoad>
+    <div className={classes.title}>{title}</div>
   </div>
-  // <Card className={classes.card}>
-  //   <div className={classes.details}>
-  //     <CardContent className={classes.content}>
-  //       <Typography variant="title">{title}</Typography>
-  //       <Typography variant="subheading" color="textSecondary">
-  //         {/* {compose(
-  //           join(', '),
-  //           map(prop('genre')),
-  //           defaultTo([])
-  //         )(genres)} */}
-  //       </Typography>
-  //     </CardContent>
-  //   </div>
-  //   <LazyLoad height={223}>
-  //     <Zoom in>
-  //       <Badge
-  //         classes={{
-  //           badge: classes.badge,
-  //         }}
-  //         badgeContent={rating.toFixed(1)}
-  //       >
-  //         <CardMedia
-  //           className={classes.cover}
-  //           image={poster}
-  //           title="Live from space album cover"
-  //         />
-  //       </Badge>
-  //     </Zoom>
-  //   </LazyLoad>
-  // </Card>
 );
 
 export default withStyles(styles)(MovieCard);

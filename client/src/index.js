@@ -1,11 +1,11 @@
 // @flow
 
-import React from 'react';
-import { render } from 'react-dom';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
 import App from './App';
 
-const root = document.createElement('div');
+const container = document.getElementById('root');
 
-if (document.body) document.body.appendChild(root);
-
-render(<App />, root);
+if (container) {
+  ReactDOM.render(<App />, container);
+}
