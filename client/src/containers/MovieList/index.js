@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { map, concat, mergeWithKey, compose, objOf } from 'ramda';
+import { map, concat, mergeDeepWithKey, cond, equals, T } from 'ramda';
 import { Query, type QueryRenderProps } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withStyles } from '@material-ui/core/styles';
@@ -41,7 +41,9 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 4}px`,
   },
   item: {
-    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   progress: {
     position: 'absolute',
@@ -86,12 +88,12 @@ const MovieList = ({ classes }: Props) => (
                     }
 
                     const concatEdges = (key, left, rigth) =>
-                      key === 'edges' ? concat(left, rigth) : rigth;
+                      cond([
+                        [equals('edges'), () => concat(left, rigth)],
+                        [T, () => rigth],
+                      ])(key);
 
-                    return compose(
-                      objOf('movies'),
-                      mergeWithKey(concatEdges, prev.movies)
-                    )(next.movies);
+                    return mergeDeepWithKey(concatEdges, prev, next);
                   },
                 })
               }
