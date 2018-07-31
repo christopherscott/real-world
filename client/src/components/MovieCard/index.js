@@ -3,13 +3,13 @@
 import * as React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import LazyLoad from 'react-lazyload';
-import Zoom from '@material-ui/core/Zoom';
+import Grow from '@material-ui/core/Grow';
 import { API } from '../../config';
-import { type Movies_movies as Movie } from '../../generated/types.flow';
+import { type Movies_movies_edges_node as Movie } from '../../generated';
 import { type ExtractReturn } from '../../types';
 
 type Props = {
-  ...$Exact<Movie>,
+  ...Movie,
   classes: {
     [key: $Keys<ExtractReturn<typeof styles>>]: string,
   },
@@ -18,6 +18,7 @@ type Props = {
 const styles = theme => ({
   card: {
     display: 'inline-block',
+    cursor: 'pointer',
   },
   poster: {
     backgroundSize: 'cover',
@@ -40,12 +41,12 @@ const styles = theme => ({
 const MovieCard = ({ classes, title, poster }: Props) => (
   <div className={classes.card}>
     <LazyLoad height={223}>
-      <Zoom in>
+      <Grow in>
         <div
           className={classes.poster}
           style={{ backgroundImage: `url(${API}/${poster})` }}
         />
-      </Zoom>
+      </Grow>
     </LazyLoad>
     <div className={classes.title}>{title}</div>
   </div>

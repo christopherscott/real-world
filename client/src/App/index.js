@@ -17,7 +17,7 @@ import {
 } from '@material-ui/core/styles';
 import grey from '@material-ui/core/colors/grey';
 import { API } from '../config';
-import Router from '../Router';
+import Router from '../router';
 
 const httpLink = new HttpLink({
   uri: API,
@@ -69,6 +69,7 @@ const styles = {
     body: {
       margin: 0,
       padding: 0,
+      fontFamily: 'Roboto, sans-serif',
     },
   },
 };

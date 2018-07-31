@@ -1,6 +1,7 @@
 // @flow
 
 import * as React from 'react';
+import throttle from 'lodash.throttle';
 import Observer from 'react-intersection-observer';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -19,6 +20,7 @@ const styles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
+    gridColumn: '1 / -1',
   },
 };
 
@@ -32,7 +34,7 @@ const InfiniteScroll = ({
   <Observer>
     {({ inView, ref }) => {
       if (hasNextPage && inView) {
-        fetchMore();
+        throttle(fetchMore, 250)();
       }
 
       return (

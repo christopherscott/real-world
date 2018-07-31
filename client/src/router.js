@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Router as ReachRouter } from '@reach/router';
-import IndexPage from '../pages/Index';
+import IndexPage from './pages/Index';
 
 const Router = () => (
   <ReachRouter>

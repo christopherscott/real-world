@@ -5,11 +5,13 @@ import { map, concat, mergeDeepWithKey, cond, equals, T } from 'ramda';
 import { Query, type QueryRenderProps } from 'react-apollo';
 import gql from 'graphql-tag';
 import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { Toggle } from 'react-powerplug';
+import { Flipper, Flipped } from 'react-flip-toolkit';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import InfiniteScroll from '../../components/InfiniteScroll';
 import MovieCard from '../../components/MovieCard';
-import { type Movies } from '../../generated/types.flow';
+import Movie from '../Movie';
+import { type Movies } from '../../generated';
 import { type ExtractReturn } from '../../types';
 
 type Props = {
@@ -38,12 +40,23 @@ const MOVIES = gql`
 
 const styles = theme => ({
   container: {
-    padding: `${theme.spacing.unit * 4}px`,
-  },
-  item: {
-    display: 'flex',
+    display: 'grid',
+    gridGap: `${theme.spacing.unit * 2}px`,
+    justifyItems: 'center',
     alignItems: 'center',
-    justifyContent: 'center',
+    padding: `${theme.spacing.unit}px`,
+    [theme.breakpoints.up('xs')]: {
+      gridTemplateColumns: 'repeat(1, 1fr)',
+    },
+    [theme.breakpoints.up('sm')]: {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+    },
+    [theme.breakpoints.up('md')]: {
+      gridTemplateColumns: 'repeat(3, 1fr)',
+    },
+    [theme.breakpoints.up('lg')]: {
+      gridTemplateColumns: 'repeat(4, 1fr)',
+    },
   },
   progress: {
     position: 'absolute',
@@ -54,15 +67,8 @@ const styles = theme => ({
 });
 
 const MovieList = ({ classes }: Props) => (
-  <Grid
-    container
-    className={classes.container}
-    spacing={16}
-    direction="row"
-    justify="center"
-    alignItems="center"
-  >
-    <Query query={MOVIES} variables={{ after: null }}>
+  <div className={classes.container}>
+    <Query query={MOVIES} variables={{ after: null }} fetchPolicy="cache-first">
       {({
         loading,
         error,
@@ -101,18 +107,23 @@ const MovieList = ({ classes }: Props) => (
             >
               {map(
                 ({ node: { id, title, poster } }) => (
-                  <Grid
-                    key={id}
-                    className={classes.item}
-                    item
-                    xl={3}
-                    lg={3}
-                    md={4}
-                    sm={6}
-                    xs={12}
-                  >
-                    <MovieCard title={title} poster={poster} />
-                  </Grid>
+                  <Toggle key={id} initial={false}>
+                    {({ on, toggle }) => (
+                      <Flipper flipKey={on}>
+                        {on ? (
+                          <Flipped flipId={id}>
+                            <Movie id={id} on={on} toggle={toggle} />
+                          </Flipped>
+                        ) : (
+                          <Flipped flipId={id}>
+                            <div role="presentation" onClick={toggle}>
+                              <MovieCard title={title} poster={poster} />
+                            </div>
+                          </Flipped>
+                        )}
+                      </Flipper>
+                    )}
+                  </Toggle>
                 ),
                 movies.edges
               )}
@@ -121,7 +132,7 @@ const MovieList = ({ classes }: Props) => (
         </React.Fragment>
       )}
     </Query>
-  </Grid>
+  </div>
 );
 
 export default withStyles(styles)(MovieList);

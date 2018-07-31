@@ -9,9 +9,15 @@ type Query {
     before: String
     first: Int
     last: Int
-  ): MovieConnection!
+  ): Movies!
   movie(where: MovieWhereUniqueInput!): Movie
   search(search: String!): [Search!]!
+}
+
+type Movies {
+  pageInfo: PageInfo!
+  aggregate: AggregateMovie!
+  edges: [MovieEdge!]!
 }
 
 union Search = Movie
